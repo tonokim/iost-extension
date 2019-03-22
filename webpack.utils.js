@@ -51,9 +51,26 @@ const getCopyPlugins = (outputDir = 'dev', sourceDir = 'src') => [
   ]),
 ];
 
+const getZipPlugin = (outputDir = 'dist') =>
+  new ZipPlugin({
+    path: __dirname,
+    filename: outputDir,
+    extension: 'zip',
+    fileOptions: {
+      mtime: new Date(),
+      mode: 0o100664,
+      compress: true,
+      forceZip64Format: false,
+    },
+    zipOptions: {
+      forceZip64Format: false,
+    },
+  });
+
 module.exports = {
   getEntry,
   getOutput,
   getHTMLPlugins,
-  getCopyPlugins
+  getCopyPlugins,
+  getZipPlugin
 };

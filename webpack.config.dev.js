@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const InjectPlugin = require('./webpack.plugin.inject.js')
 const { getEntry, getOutput, getHTMLPlugins, getCopyPlugins } = require('./webpack.utils');
 
 
@@ -42,6 +43,7 @@ module.exports = {
   entry: getEntry(),
   output: getOutput(),
   plugins: [
+    new InjectPlugin(config),
     ...getHTMLPlugins(),
     ...getCopyPlugins(),
   ]
