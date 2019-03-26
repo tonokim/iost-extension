@@ -44,19 +44,23 @@ const config = {
   }
 }
 
-console.log(process.cwd())
-module.exports = {
-  ...config,
-  entry: getEntry(),
-  output: getOutput('dist'),
-  plugins: [
-    new CleanWebpackPlugin({
-      verbose: true,
-      cleanOnceBeforeBuildPatterns: [path.join(process.cwd(), 'dist'), path.join(process.cwd(), 'dist.zip')],
-    }),
-    new InjectPlugin(config),
-    ...getHTMLPlugins('dist'),
-    ...getCopyPlugins('dist'),
-    getZipPlugin(),
-  ]
-}
+
+const browserDirs = ['chrome', 'opera', 'firefox']
+
+module.exports = browserDirs.map(browserDir => {
+  return {
+    ...config,
+    entry: getEntry(),
+    output: getOutput(browserDir,'temp'),
+    plugins: [
+      new CleanWebpackPlugin({
+        verbose: true,
+        cleanOnceBeforeBuildPatterns: [path.join(process.cwd(), 'dist'), path.join(process.cwd(), 'temp')],
+      }),
+      new InjectPlugin(config, browserDir),
+      ...getHTMLPlugins(browserDir,'temp'),
+      ...getCopyPlugins(browserDir, 'temp'),
+      getZipPlugin(browserDir),
+    ]
+  }
+})

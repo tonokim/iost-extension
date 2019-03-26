@@ -18,7 +18,7 @@ const config = {
         },
         resolve: {
           extensions: ['.js', '.jsx'],
-        },
+        }
       },
       {
         test: /\.less$/,
@@ -37,14 +37,17 @@ const config = {
     ]
   }
 }
+const browserDirs = ['chrome', 'opera', 'firefox']
 
-module.exports = {
-  ...config,
-  entry: getEntry(),
-  output: getOutput(),
-  plugins: [
-    new InjectPlugin(config),
-    ...getHTMLPlugins(),
-    ...getCopyPlugins(),
-  ]
-}
+module.exports = browserDirs.map(browserDir => {
+  return {
+    ...config,
+    entry: getEntry(),
+    output: getOutput(browserDir),
+    plugins: [
+      new InjectPlugin(config, browserDir),
+      ...getHTMLPlugins(browserDir),
+      ...getCopyPlugins(browserDir),
+    ]
+  }
+})

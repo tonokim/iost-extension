@@ -15,46 +15,46 @@ const getEntry = (sourceDir = 'src') => {
   };
 };
 
-const getOutput = (outputDir = 'dev') => {
+const getOutput = (browserDir, outputDir = 'dev') => {
   return {
-    path: path.resolve(__dirname, outputDir),
+    path: path.resolve(__dirname, `${outputDir}/${browserDir}`),
     filename: '[name]/[name].js',
   };
 };
 
-const getHTMLPlugins = (outputDir = 'dev', sourceDir = 'src') => [
+const getHTMLPlugins = (browserDir, outputDir = 'dev', sourceDir = 'src') => [
   new HtmlWebpackPlugin({
     title: 'Popup',
-    filename: path.resolve(__dirname, `${outputDir}/popup/index.html`),
+    filename: path.resolve(__dirname, `${outputDir}/${browserDir}/popup/index.html`),
     template: `${sourceDir}/popup/index.html`,
     chunks: ['popup'],
   }),
   new HtmlWebpackPlugin({
     title: 'Options',
-    filename: path.resolve(__dirname, `${outputDir}/options/index.html`),
+    filename: path.resolve(__dirname, `${outputDir}/${browserDir}/options/index.html`),
     template: `${sourceDir}/options/index.html`,
     chunks: ['options'],
   }),
   new HtmlWebpackPlugin({
     title: 'Prompts',
-    filename: path.resolve(__dirname, `${outputDir}/prompts/index.html`),
+    filename: path.resolve(__dirname, `${outputDir}/${browserDir}/prompts/index.html`),
     template: `${sourceDir}/prompts/index.html`,
     chunks: ['prompts'],
   }),
 ];
 
-const getCopyPlugins = (outputDir = 'dev', sourceDir = 'src') => [
+const getCopyPlugins = (browserDir, outputDir = 'dev', sourceDir = 'src') => [
   new CopyWebpackPlugin([
-    { from: `${sourceDir}/assets`, to: path.resolve(__dirname, `${outputDir}/assets`) },
-    { from: `${sourceDir}/_locales`, to: path.resolve(__dirname, `${outputDir}/_locales`) },
-    { from: `${sourceDir}/manifest.json`, to: path.resolve(__dirname, `${outputDir}/manifest.json`) },
+    { from: `${sourceDir}/assets`, to: path.resolve(__dirname, `${outputDir}/${browserDir}/assets`) },
+    { from: `${sourceDir}/_locales`, to: path.resolve(__dirname, `${outputDir}/${browserDir}/_locales`) },
+    { from: `${sourceDir}/manifest.json`, to: path.resolve(__dirname, `${outputDir}/${browserDir}/manifest.json`) },
   ]),
 ];
 
-const getZipPlugin = (outputDir = 'dist') =>
+const getZipPlugin = (browserDir, outputDir = 'dist') =>
   new ZipPlugin({
-    path: __dirname,
-    filename: outputDir,
+    path: path.resolve(__dirname, `${outputDir}/${browserDir}`),
+    filename: browserDir,
     extension: 'zip',
     fileOptions: {
       mtime: new Date(),

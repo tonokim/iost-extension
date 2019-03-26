@@ -2,8 +2,10 @@
 const webpack = require('webpack')
 const path = require('path');
 
-function InjectPlugin(pluginOptions) {
+function InjectPlugin(pluginOptions, browserDir) {
   this.options = pluginOptions;
+  this.browserDir = browserDir;
+  this.outputDir = this.options.mode == 'production'?'temp':'dev'
 };
 
 InjectPlugin.prototype.apply = function(compiler) {
@@ -14,7 +16,7 @@ InjectPlugin.prototype.apply = function(compiler) {
         inject: path.resolve(__dirname, 'src/inject/inject.js'),
       },
       output: {
-        path: path.resolve(__dirname, this.options.mode == 'production'?'dist':'dev'),
+        path: path.resolve(__dirname, `${this.outputDir}/${this.browserDir}`),
         filename: '[name]/[name].js',
       }
     }, (err, stats) => {
