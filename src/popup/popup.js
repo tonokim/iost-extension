@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import style from './style.less'
-
-
-
-const Index = () => <div className="container">popup</div>
+import { Provider } from 'mobx-react'
+import App from './containers/App';
+import RootStore from "./stores";
 
 ReactDOM.render(
-  <Index />, 
+  <Provider rootStore={new RootStore()}>
+    <App />
+  </Provider>, 
   document.getElementById('root')
 )
