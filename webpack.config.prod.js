@@ -1,9 +1,9 @@
 const webpack = require('webpack')
 const InjectPlugin = require('./webpack.plugin.inject.js')
-const { getEntry, getOutput, getHTMLPlugins, getCopyPlugins, getZipPlugin } = require('./webpack.utils')
+const { getEntry, getOutput, getHTMLPlugins, getCopyPlugins, getResolve, getZipPlugin } = require('./webpack.utils')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const path = require('path');
+// const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const config = {
   mode: 'production',
@@ -49,14 +49,15 @@ module.exports = browserDirs.map(browserDir => {
     entry: getEntry(),
     output: getOutput(browserDir,'temp'),
     plugins: [
-      new CleanWebpackPlugin({
-        verbose: true,
-        cleanOnceBeforeBuildPatterns: [path.join(process.cwd(), 'dist'), path.join(process.cwd(), 'temp')],
-      }),
-      new InjectPlugin(config, browserDir),
+      // new CleanWebpackPlugin({
+      //   verbose: true,
+      //   cleanOnceBeforeBuildPatterns: [path.join(process.cwd(), 'dist'), path.join(process.cwd(), 'temp')],
+      // }),
+      new InjectPlugin({ ...config, resolve: getResolve()}, browserDir),
       ...getHTMLPlugins(browserDir,'temp'),
       ...getCopyPlugins(browserDir, 'temp'),
       getZipPlugin(browserDir),
-    ]
+    ],
+    resolve: getResolve()
   }
 })

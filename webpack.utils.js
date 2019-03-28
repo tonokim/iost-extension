@@ -6,6 +6,7 @@ const path = require('path');
 
 const getEntry = (sourceDir = 'src') => {
   return {
+    inject: path.resolve(__dirname, `${sourceDir}/inject/inject.js`),
     popup: path.resolve(__dirname, `${sourceDir}/popup/popup.js`),
     options: path.resolve(__dirname, `${sourceDir}/options/options.js`),
     prompts: path.resolve(__dirname, `${sourceDir}/prompts/prompts.js`),
@@ -51,6 +52,16 @@ const getCopyPlugins = (browserDir, outputDir = 'dev', sourceDir = 'src') => [
   ]),
 ];
 
+const getResolve = () => {
+  return {
+    alias: {
+      '@themes': `${__dirname}/src/themes`,
+      components: `${__dirname}/src/components`,
+      utils: `${__dirname}/src/utils`,
+    }
+  }
+}
+
 const getZipPlugin = (browserDir, outputDir = 'dist') =>
   new ZipPlugin({
     path: path.resolve(__dirname, `${outputDir}/${browserDir}`),
@@ -72,5 +83,6 @@ module.exports = {
   getOutput,
   getHTMLPlugins,
   getCopyPlugins,
-  getZipPlugin
+  getZipPlugin,
+  getResolve
 };

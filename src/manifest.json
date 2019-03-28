@@ -1,7 +1,7 @@
 {
   "name": "iWallet",
     "author": "tonokim",
-    "version": "0.0.1",
+    "version": "0.2.0",
     "manifest_version": 2,
     "description": "Wallet Extension for IOST",
     "icons": {
@@ -41,7 +41,7 @@
             "19": "assets/icons/icon-19.png",
             "38": "assets/icons/icon-38.png"
         },
-        "default_title": "Extension Boilerplate",
+        "default_title": "iWallet",
         "default_popup": "popup/index.html"
     },
     "web_accessible_resources": [

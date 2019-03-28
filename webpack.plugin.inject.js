@@ -6,6 +6,7 @@ function InjectPlugin(pluginOptions, browserDir) {
   this.options = pluginOptions;
   this.browserDir = browserDir;
   this.outputDir = this.options.mode == 'production'?'temp':'dev'
+  
 };
 
 InjectPlugin.prototype.apply = function(compiler) {

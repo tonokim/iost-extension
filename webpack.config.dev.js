@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const InjectPlugin = require('./webpack.plugin.inject.js')
-const { getEntry, getOutput, getHTMLPlugins, getCopyPlugins } = require('./webpack.utils');
+const { getEntry, getOutput, getHTMLPlugins, getResolve, getCopyPlugins } = require('./webpack.utils');
 
 const config = {
   mode: 'development',
@@ -30,7 +30,7 @@ const config = {
         ],
       },
     ]
-  }
+  },
 }
 const browserDirs = ['chrome', 'opera', 'firefox']
 
@@ -40,9 +40,10 @@ module.exports = browserDirs.map(browserDir => {
     entry: getEntry(),
     output: getOutput(browserDir),
     plugins: [
-      new InjectPlugin(config, browserDir),
+      // new InjectPlugin(config, browserDir),
       ...getHTMLPlugins(browserDir),
       ...getCopyPlugins(browserDir),
-    ]
+    ],
+    resolve: getResolve()
   }
 })

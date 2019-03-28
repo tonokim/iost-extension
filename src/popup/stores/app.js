@@ -2,7 +2,7 @@ import { observable, computed, toJS, action } from "mobx"
 
 
 class App {
-  @observable text = '123'
+  @observable currentPage = 'login'
 
   constructor(rootStore) {
     this.rootStore = rootStore
