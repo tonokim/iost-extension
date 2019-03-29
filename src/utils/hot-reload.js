@@ -19,7 +19,7 @@ const reload = () => {
       chrome.tabs.reload(tabs[0].id);
     }
     // reload
-    chrome.runtime.reload();
+    // chrome.runtime.reload();
   });
 };
 

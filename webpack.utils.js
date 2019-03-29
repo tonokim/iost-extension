@@ -56,8 +56,9 @@ const getResolve = () => {
   return {
     alias: {
       '@themes': `${__dirname}/src/themes`,
-      components: `${__dirname}/src/components`,
       utils: `${__dirname}/src/utils`,
+      components: `${__dirname}/src/components`,
+      '@popup': `${__dirname}/src/popup`,
     }
   }
 }

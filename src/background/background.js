@@ -48,6 +48,6 @@ class Background {
 
 }
 
-new Background()
+const background = new Background()
 
-// window.background = background
+window.background = background

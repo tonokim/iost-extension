@@ -7,7 +7,6 @@ class Message extends EventEmitter{
   constructor() {
     super()
     this.ports = new Map() //ports
-    console.log(this.ports)
     ext.runtime.onConnect.addListener(this.onConnection)
   }
 

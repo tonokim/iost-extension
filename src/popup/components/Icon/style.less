@@ -1,0 +1,54 @@
+
+@import "~@themes/vars.less";
+@import "~@themes/mixin.less";
+
+.icon-logo{
+  .icon('/assets/imgs/logo.png', 24px, 30px);
+}
+
+.icon-home{
+  .icon('/assets/imgs/logo-home.png', 150px, 170px);
+}
+
+.icon-checkbox{
+  display: inline-block;
+  margin-right: 5px;
+  margin-top: 1px;
+  width: 14px;
+  height: 14px;
+  background-repeat: no-repeat;
+  .radius(2px);
+  background-size: 10px 8px;
+  background-position: center center;
+  background-image: none;
+  border: 1px solid #979797;
+  cursor: pointer;
+  &.active{
+    border: 1px solid blue;
+    background-image: url('/assets/imgs/icon-checked.png');
+  }
+}
+
+.icon-loading{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-top:2px solid #F1F1F1;
+  border-left:2px solid #F1F1F1;
+  border-right:2px solid #F1F1F1;
+  border-bottom:2px solid #414141;
+  border-radius: 25px;
+  animation:rotate 1s infinite linear;
+}
+
+@keyframes rotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  50%{
+    transform:rotate(180deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}

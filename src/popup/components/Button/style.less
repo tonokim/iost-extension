@@ -1,0 +1,21 @@
+
+@import "~@themes/vars.less";
+@import "~@themes/mixin.less";
+
+.button-container{
+  width: 300px;
+  height: 40px;
+  background-color: #000000;
+  color: @white;
+  font-size: 16px;
+  cursor: pointer;
+  .radius(4px);
+  border: none;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: rgba(#2B3338, .8);
+  }
+  
+
+}

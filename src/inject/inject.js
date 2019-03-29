@@ -73,7 +73,7 @@ class IWalletJS {
     this.iost.account = new IOST.Account(this.account.name)
     this.iost.rpc = this.rpc
 
-    return this.iost;
+    return this.iost
   }
 
   enable(){
@@ -132,24 +132,14 @@ function signAndSendAsync(tx){
 
 function getTheseusAccountInfo(){
   return new Promise((resolve, reject) => {
-    if(this.account){
-      if(this.account.type == 'theseus'){
-        const actionId = uuidv4()
-        const EE = new EventEmitter()
-        actionMap[actionId] = EE
-        EE.on('success', data => {
-          resolve({
-            balances: data
-          })
-        })
-        .on('failed', reject)
-        window.postMessage({action: 'GET_THESEUS_ACCOUNT_INFO', actionId, data: { account: this.account } }, '*')
-      }else {
-        reject('not theseus account')
-      }
-    }else {
-      reject('no account')
-    }
+    if(!this.account) return reject('no account') 
+    if(this.account.type != 'theseus') return reject('not theseus account')
+    const actionId = uuidv4()
+    const EE = new EventEmitter()
+    actionMap[actionId] = EE
+    EE.on('success', data => resolve({ balances: data }))
+    .on('failed', reject)
+    window.postMessage({action: 'GET_THESEUS_ACCOUNT_INFO', actionId, data: { account: this.account } }, '*')
   })
 }
 
