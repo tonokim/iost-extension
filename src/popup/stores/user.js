@@ -1,18 +1,20 @@
 import { observable, computed, toJS, action } from "mobx"
+import { getAccounts, getCurrentAccount } from '@popup/utils'
 
 class User {
   @observable accounts = []
   @observable currentAccount = null
-
+  
   @action
-  setAccounts(data){
-    this.accounts = data
+  initAccounts(data){
+    this.accounts = getAccounts()
   }
 
   @action
-  setCurrentAccount(data){
-    this.currentAccount = data
+  initCurrentAccount(){
+    this.currentAccount = getCurrentAccount()
   }
+
 }
 
 export default User

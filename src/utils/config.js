@@ -10,11 +10,13 @@ const config = {
     {
       name: 'MAINNET',
       url: 'https://api.iost.io',
+      chain_id: 1024,
       default: true
     },
     {
       name: 'TESTNET',
-      url: 'http://13.52.105.102:30001',
+      url: 'https://test.api.iost.io',
+      chain_id: 1023,
       default: true
     }
   ],

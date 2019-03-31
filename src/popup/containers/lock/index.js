@@ -10,11 +10,11 @@ import './style.less'
 @inject("rootStore")
 @observer
 class Lock extends Component {
+  state = {
+    password: ''
+  }
   constructor(props){
     super(props)
-    this.state = {
-      password: ''
-    }
     this.store = this.props.rootStore
     this.formatMsg = this.props.intl.formatMessage
   }

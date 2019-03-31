@@ -2,12 +2,13 @@
 import React, { Component } from 'react'
 import { IntlProvider, FormattedMessage, addLocaleData } from 'react-intl'
 import { inject, observer } from "mobx-react";
-import { hasRegister, getLockState, hasAccounts, getAccounts, hasCurrentAccount, getCurrentAccount } from '@popup/utils'
+import { hasRegister, getLockState, hasAccounts, getCurrentAccount } from '@popup/utils'
+import iost from '@popup/iost'
 import './style.less'
 import chooseLocale from '@popup/i18n'
 
 import Register from './register'
-import AccountImport from './accountimport'
+import AccountImport from './accountImport'
 import Lock from './lock'
 import Home from './home'
 
@@ -42,10 +43,12 @@ export default class  extends Component {
       if(!hasAccounts()){
         return this.store.app.onReplacePage('accountImport')
       }
-      const accounts = await getAccounts()
-      this.store.user.setAccounts(accounts)
+      this.store.user.initAccounts()
+      this.store.user.initCurrentAccount()
+      const { currentAccount } = this.store.user
+      iost.changeAccount(currentAccount)
+      this.store.app.onReplacePage('home')
 
-      const hasCurAccount = hasCurrentAccount()
 
     } catch (err) {
       console.log(err)

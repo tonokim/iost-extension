@@ -18,16 +18,18 @@ export default class  extends Component {
   render(){
     const { type = 'text', name, placeholder, autoFocus, className } = this.props
     if(type == 'textarea'){
-      <div className="input-container">
-        <textarea 
-          name={name} 
-          className={className}
-          autoComplete="off" 
-          onChange={this.onChange} 
-          placeholder={placeholder}
-          autoFocus={autoFocus}
-        />
-      </div>
+      return (
+        <div className="input-container">
+          <textarea 
+            name={name} 
+            className={className}
+            autoComplete="off" 
+            onChange={this.onChange} 
+            placeholder={placeholder}
+            autoFocus={autoFocus}
+          />
+        </div>
+      )
     }
     return(
       <div className="input-container">

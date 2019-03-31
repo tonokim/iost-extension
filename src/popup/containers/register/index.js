@@ -9,13 +9,13 @@ import './style.less'
 @inject("rootStore")
 @observer
 class Register extends Component {
+  state = {
+    password: '',
+    repassword: '',
+    isChecked: true
+  }
   constructor(props){
     super(props)
-    this.state = {
-      password: '',
-      repassword: '',
-      isChecked: true
-    }
     this.store = this.props.rootStore
     this.formatMsg = this.props.intl.formatMessage
   }

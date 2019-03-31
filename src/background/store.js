@@ -1,7 +1,7 @@
 
 import config from 'utils/config'
 import storage from 'utils/storage'
-import { lan, sha256, aesDecrypt } from 'utils'
+import { lan, sha256, aesEncrypt, aesDecrypt } from 'utils'
 
 class Store {
   constructor(){
@@ -14,7 +14,7 @@ class Store {
     
     this._initLan()
     this._initNodes()
-    
+    this._initAccounts()
     
   }
 
@@ -32,18 +32,28 @@ class Store {
       accounts.map(item => {
         let account = {...item}
         const key = `${account.type}:${account.network}:${account.name}`
-        account = decryptAccount(account)
+        account = this.decryptAccount(account)
         this.accounts.set(key,account)
       })
       this._initCurrentAccount()
     }
   }
 
+  encryptAccount(account){
+    const arr = ['privateKey', 'password', 'token', 'retoken']
+    return arr.reduce((prev, next) => {
+      if(prev[next]){
+        prev[next] = aesEncrypt(prev[next], this.password)
+      }
+      return prev
+    },account)
+  }
+
   decryptAccount(account){
     const arr = ['privateKey', 'password', 'token', 'retoken']
     return arr.reduce((prev, next) => {
-      if(prev[key]){
-        prev[key] = aesDecrypt(prev[key], this.password)
+      if(prev[next]){
+        prev[next] = aesDecrypt(prev[next], this.password)
       }
       return prev
     },account)
@@ -52,18 +62,23 @@ class Store {
   async _initCurrentAccount(){
     if(this.hasAccounts){
       const curKey = await this.getStorage('currentAccount')
-      if(this.accounts.has(curKey)){
+      if(curKey && this.accounts.has(curKey)){
         this.setCurrentAccount(curKey)
       }else {
-        const accounts = getAccounts()
+        const accounts = this.getAccounts()
         const key = `${accounts[0].type}:${accounts[0].network}:${accounts[0].name}`
         this.setCurrentAccount(key)
       }
     }
   }
 
+
   getNodes(){
     return [...this.nodes.keys()].map(key => this.nodes.get(key))
+  }
+
+  getCurrentNode(){
+    return this.nodes.get(this.getCurrentAccount.network)
   }
 
   get hasAccounts() {
@@ -86,6 +101,27 @@ class Store {
   get hasCurrentAccount(){
     return this.accounts.has(this.currentAccount)
   }
+
+  addAccounts(accounts){
+    if(!this.lock && accounts.length){
+      let firstKey = ''
+      accounts.map(account => {
+        const key = `${account.type}:${account.network}:${account.name}`
+        if(!firstKey){
+          firstKey = key
+        }
+        this.accounts.set(key,account)
+      })
+      // aesEncrypt
+      const newAccounts = this.getAccounts().map(item => this.encryptAccount(item))
+      this.setStorage('accounts', newAccounts)
+      if(!this.hasCurrentAccount){
+        this.setCurrentAccount(firstKey)
+      }
+    }
+  }
+
+  
 
   getLan(){
     return this.lan
