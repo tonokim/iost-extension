@@ -66,10 +66,10 @@ const zh_CN = {
 
   "Settings_Title": "设置",
   "Settings_accountManage": "账号管理",
-  "Settings_changeLanguage": "更改语言",
+  "Settings_language": "更改语言",
   "Settings_changePwd": "修改密码",
   "Settings_lock": "立即锁定",
-  "Settings_iostWallet": "关于IOST钱包",
+  "Settings_about": "关于IOST钱包",
 
   "ManageAccount_Add": "添加",
   "ManageAccount_PublicKey": "公钥",

@@ -11,6 +11,7 @@ import Register from './register'
 import AccountImport from './accountImport'
 import Lock from './lock'
 import Home from './home'
+import Setting from './setting'
 
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
@@ -34,25 +35,28 @@ export default class  extends Component {
     try {
       const isRegister = await hasRegister()
       if(!isRegister){
-        return this.store.app.onReplacePage('register')
+        this.store.app.onReplacePage('register')
+      }else {
+        const isLock = getLockState()
+        if(isLock){
+          this.store.app.onReplacePage('lock')
+        }else {
+          if(!hasAccounts()){
+            this.store.app.onReplacePage('accountImport')
+          }else {
+            this.store.user.initAccounts()
+            this.store.user.initCurrentAccount()
+            const { currentAccount } = this.store.user
+            iost.changeAccount(currentAccount)
+            // this.store.app.onReplacePage('home')
+            this.store.app.onReplacePage('setting')
+          }
+        }
       }
-      const isLock = getLockState()
-      if(isLock){
-        return this.store.app.onReplacePage('lock')
-      }
-      if(!hasAccounts()){
-        return this.store.app.onReplacePage('accountImport')
-      }
-      this.store.user.initAccounts()
-      this.store.user.initCurrentAccount()
-      const { currentAccount } = this.store.user
-      iost.changeAccount(currentAccount)
-      this.store.app.onReplacePage('home')
-
-
     } catch (err) {
       console.log(err)
     }
+    this.store.app.setLoading(false)
   }
 
   render(){
@@ -70,6 +74,9 @@ export default class  extends Component {
         break;
       case 'home':
         renderComponent = <Home />
+        break;
+      case 'setting':
+        renderComponent = <Setting />
         break;
       default: 
         renderComponent = <Register />

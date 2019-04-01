@@ -10,7 +10,7 @@ class IWallet {
   constructor(){
     this.pack = IOST
     this.iost = new IOST.IOST(config.DEFAULT_IOST_CONFIG)
-    this.rpc = new IOST.RPC(new IOST.HTTPProvider('http://api.iost.io'))
+    this.rpc = new IOST.RPC(new IOST.HTTPProvider('https://api.iost.io'))
     this.iost.setRPC(this.rpc)
     this.account = new IOST.Account('empty')
   }

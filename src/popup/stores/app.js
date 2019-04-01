@@ -5,9 +5,15 @@ class App {
   @observable currentPage = 'register'
   @observable pages = []
   @observable lan = defaultLan
+  @observable loading = true
 
   constructor(rootStore) {
     this.rootStore = rootStore
+  }
+
+  @action
+  setLoading(value){
+    this.loading = value
   }
 
   @action

@@ -90,7 +90,10 @@ class Store {
   }
 
   setCurrentAccount(key){
-    this.currentAccount = key
+    if(key){
+      this.currentAccount = key
+      this.setStorage('currentAccount', key)
+    }
   }
 
   getCurrentAccount(){

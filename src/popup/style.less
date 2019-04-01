@@ -25,13 +25,22 @@ html, body{
   font-family: PingFang SC, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 #root{
-  // background-color: #F6F6F6;
+  // background-color: @gray;
   border:1px solid #ccc;
   height: 600px;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
 }
 
 a{
@@ -45,4 +54,8 @@ a{
   &::-webkit-scrollbar {
     display: none !important;
   }
+}
+
+.hide{
+  display: none;
 }

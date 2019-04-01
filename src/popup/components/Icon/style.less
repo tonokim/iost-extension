@@ -29,6 +29,67 @@
   }
 }
 
+.icon-circle{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #E28A1E;
+  margin-right: 8px;
+  &.green {
+    background-color: @green;
+  }
+}
+
+.icon-arrow{
+  width: 10px;
+  height: 8px;
+  cursor: pointer;
+  margin-left: 8px;
+  display: none;
+  &:before {
+    position: absolute;
+    content: '';
+    width: 8px;
+    height: 8px;
+    border: 1px solid #999999;
+    // transition: 0.3s all ease-in-out;
+  }
+  &.down {
+    display: inline-block;
+    &:before {
+      transform: translateY(-4px) rotateZ(45deg);
+      border-top-color: transparent;
+      border-left-color: transparent;
+    }
+  }
+  &.right {
+    display: inline-block;
+    &:before {
+      transform: translateY(-1px) rotateZ(45deg);
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+  }
+}
+
+.icon-setting{
+  .icon('/assets/imgs/setting.png', 24px, 26px);
+  cursor: pointer;
+}
+
+.icon-check{
+  .icon('/assets/imgs/icon-checked-black.png', 10px, 8px);
+  background-image: none;
+  &.black{
+    background-image: url(/assets/imgs/icon-checked-black.png);
+  }
+}
+
+.icon-big-logo{
+  .icon('/assets/imgs/logo.png', 72px, 85px);
+}
+
 .icon-loading{
   display: inline-block;
   width: 20px;
@@ -39,6 +100,26 @@
   border-bottom:2px solid #414141;
   border-radius: 25px;
   animation:rotate 1s infinite linear;
+}
+
+.icon-account{
+  .icon('/assets/imgs/account.png', 22px, 18px);
+}
+
+.icon-book{
+  .icon('/assets/imgs/book.png', 22px, 18px);
+}
+
+.icon-key{
+  .icon('/assets/imgs/key.png', 22px, 22px);
+}
+
+.icon-lock{
+  .icon('/assets/imgs/lock.png', 22px, 22px);
+}
+
+.icon-wallet{
+  .icon('/assets/imgs/wallet.png', 22px, 16px);
 }
 
 @keyframes rotate{

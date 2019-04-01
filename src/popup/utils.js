@@ -34,6 +34,8 @@ const hasCurrentAccount = () => bg.store.hasCurrentAccount
 
 const getCurrentAccount = () => bg.store.getCurrentAccount()
 
+const setCurrentAccount = (key) => bg.store.setCurrentAccount(key)
+
 const getCurrentNode = () => bg.store.getCurrentNode()
 
 
@@ -44,7 +46,7 @@ const privateKeyToPublicKey = (privateKey) => {
 }
 
 const getAccountBypublickKey = async (publickKey, isProd = true) => {
-  const url = isProd? 'https://explorer.iost.io/': ' http://54.249.186.224/'
+  const url = isProd? 'https://explorer.iost.io/': 'http://54.249.186.224/'
   try {
     const { data } = await axios.get(`${url}iost-api/accounts/${publickKey}`,{
       timeout: 10000
@@ -70,6 +72,7 @@ export {
   getAccounts,
   hasCurrentAccount,
   getCurrentAccount,
+  setCurrentAccount,
   getCurrentNode,
   privateKeyToPublicKey,
   getAccountBypublickKey,

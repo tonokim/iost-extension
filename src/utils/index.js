@@ -1,5 +1,6 @@
 
 import crypto from 'crypto'
+import cx from 'classnames'
 import hash from 'hash.js'
 
 const checkLan = (str) => ['en','zh','ko'].indexOf(str)> -1 ? str : null
@@ -30,10 +31,14 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 const sha256 = (str) => hash.sha256().update(str).digest('hex')
 
+const getAccountKey = (account) => `${account.type}:${account.network}:${account.name}`
+
 export {
   lan,
+  cx,
   aesEncrypt,
   aesDecrypt,
   delay,
-  sha256
+  sha256,
+  getAccountKey,
 }

@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { Icon } from '@popup/components'
 import style from './style.less'
 
-export default class  extends Component {
+class Button extends Component {
   constructor(props){
     super(props)
   }
@@ -17,3 +17,16 @@ export default class  extends Component {
     )
  }
 }
+
+
+const ButtonBox = ({className, children}) => (
+  <div className={classnames('btn-box', className)}>
+    {children}
+  </div>
+)
+
+Button.ButtonBox = ButtonBox
+
+
+
+export default Button

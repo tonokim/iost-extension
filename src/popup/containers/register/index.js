@@ -85,20 +85,21 @@ class Register extends Component {
 
   render(){
     const { isChecked } = this.state
+    const { loading } = this.store.app
     return(
       <div className="register-container">
         <div className="landing-box">
           <Icon type="home" />
         </div>
-        <div className="register-box">
-          <Input 
-            name="password" 
-            type="password" 
-            onChange={this.onChange} 
-            className="input"
-            autoFocus
-            placeholder={this.formatMsg({id: 'firstLogin_SetPassword'})}
-          />
+        {!loading && <div className="register-box">
+        <Input 
+          name="password" 
+          type="password" 
+          onChange={this.onChange} 
+          className="input"
+          autoFocus
+          placeholder={this.formatMsg({id: 'firstLogin_SetPassword'})}
+        />
           <Input 
             name="repassword" 
             type="password" 
@@ -120,7 +121,7 @@ class Register extends Component {
               <a href='javascript:;' onClick={this.onAgreement}> {this.formatMsg({id:'firstLogin_AgreementTip2'})}</a>
             </span>
           </div>
-        </div>
+        </div>}
       </div>
     )
  }
