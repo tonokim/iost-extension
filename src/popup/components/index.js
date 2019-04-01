@@ -4,6 +4,7 @@ import Input from './Input'
 import Icon from './Icon'
 import Button from './Button'
 import Toast from './Toast'
+import Dialog from './Dialog'
 
 export {
   Header,
@@ -11,4 +12,5 @@ export {
   Icon,
   Button,
   Toast,
+  Dialog,
 }

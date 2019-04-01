@@ -30,6 +30,8 @@ const hasAccounts = () => bg.store.hasAccounts
 
 const getAccounts = () => bg.store.getAccounts()
 
+const deleteAccount = (key) => bg.store.deleteAccount(key)
+
 const hasCurrentAccount = () => bg.store.hasCurrentAccount
 
 const getCurrentAccount = () => bg.store.getCurrentAccount()
@@ -70,6 +72,7 @@ export {
   getLockState,
   hasAccounts,
   getAccounts,
+  deleteAccount,
   hasCurrentAccount,
   getCurrentAccount,
   setCurrentAccount,

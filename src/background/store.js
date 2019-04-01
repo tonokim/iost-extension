@@ -1,7 +1,7 @@
 
 import config from 'utils/config'
 import storage from 'utils/storage'
-import { lan, sha256, aesEncrypt, aesDecrypt } from 'utils'
+import { lan, sha256, aesEncrypt, aesDecrypt, getAccountKey } from 'utils'
 
 class Store {
   constructor(){
@@ -124,6 +124,16 @@ class Store {
     }
   }
 
+  deleteAccount(key){
+    if(this.accounts.has(key)){
+      this.accounts.delete(key)
+      const newAccounts = this.getAccounts().map(item => this.encryptAccount(item))
+      this.setStorage('accounts', newAccounts)
+      if(!this.hasCurrentAccount && newAccounts.length){
+        this.setCurrentAccount(getAccountKey(newAccounts[0]))
+      }
+    }
+  }
   
 
   getLan(){

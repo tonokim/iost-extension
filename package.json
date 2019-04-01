@@ -65,6 +65,8 @@
     "mobx-react": "^5.4.3",
     "rc-notification": "^3.3.1",
     "react": "^16.8.4",
+    "react-confirm-alert": "^2.4.0",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.4",
     "react-intl": "^2.8.0",
     "uuid": "^3.3.2"

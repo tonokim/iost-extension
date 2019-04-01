@@ -41,7 +41,10 @@ class Home extends Component {
     const type = currentAccount.type || 'iost'
     return(
       <div className="home-container">
-        <Header logo setting>
+        <Header 
+          logo 
+          setting
+        >
           <div className="account-current-box" onClick={this.onToggle}>
             <Icon type="circle" color={currentAccount.network != 'MAINNET' ? 'green' : ''}/>
             <span>{currentAccount.name}</span>

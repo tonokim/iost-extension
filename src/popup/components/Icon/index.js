@@ -8,9 +8,9 @@ export default class  extends Component {
     super(props)
   }
   render(){
-  const { type, active, className, color, onClick } = this.props
+  const { type, active, className, color, onClick, dataKey } = this.props
     return(
-      <i className={classnames(`icon-${type}`, className, color, active?'active':'' )} onClick={onClick}/>
+      <i className={classnames(`icon-${type}`, className, color, active?'active':'' )} onClick={onClick} data-key={dataKey}/>
     )
  }
 }

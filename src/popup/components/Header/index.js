@@ -23,15 +23,18 @@ class Header extends Component {
   }
 
   onBack = () => {
-    this.store.app.onBackPage()
+    if(this.props.onBack){
+      this.props.onBack()
+    }else{
+      this.store.app.onBackPage()
+    }
   }
 
   render(){
-    const { logo, back, setting, addAccount, title, children } = this.props
+    const { logo, setting, addAccount, title, children } = this.props
     return(
       <div className="header-container">
-        {logo && <Icon type="logo"/>}
-        {back && <Icon type="back" onClick={this.onBack}/>}
+        {logo? <Icon type="logo"/>: <Icon type="back" onClick={this.onBack}/>}
         { title && <span className="title">{title}</span> }
         {children}
         { setting ? <Icon type="setting" onClick={this.onSetting}/> : addAccount ? <span onClick={this.onImportAccount} className="add-account-box">{this.formatMsg({id: 'ManageAccount_Add'})}</span>: <i />}

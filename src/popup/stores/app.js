@@ -36,8 +36,8 @@ class App {
   @action
   onBackPage = () => {
     this.pages.pop()
-    if(this.pages.size){
-      this.currentPage = this.pages[this.pages.size-1]
+    if(this.pages.length){
+      this.currentPage = this.pages[this.pages.length-1]
     }
   }
 

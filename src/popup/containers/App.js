@@ -12,6 +12,7 @@ import AccountImport from './accountImport'
 import Lock from './lock'
 import Home from './home'
 import Setting from './setting'
+import AccountManage from './accountManage'
 
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
@@ -49,7 +50,8 @@ export default class  extends Component {
             const { currentAccount } = this.store.user
             iost.changeAccount(currentAccount)
             // this.store.app.onReplacePage('home')
-            this.store.app.onReplacePage('setting')
+            // this.store.app.onReplacePage('setting')
+            this.store.app.onReplacePage('accountManage')
           }
         }
       }
@@ -77,6 +79,9 @@ export default class  extends Component {
         break;
       case 'setting':
         renderComponent = <Setting />
+        break;
+      case 'accountManage':
+        renderComponent = <AccountManage />
         break;
       default: 
         renderComponent = <Register />

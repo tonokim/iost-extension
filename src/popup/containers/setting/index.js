@@ -32,7 +32,6 @@ class Setting extends Component {
       <div className="setting-container">
         <Header 
           title={this.formatMsg({id: 'Settings_Title'})} 
-          back
         />
         <ul className="setting-list">
           {list.map(item => 

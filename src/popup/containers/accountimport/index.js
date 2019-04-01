@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { inject, observer } from "mobx-react";
+import { inject, observer } from "mobx-react"
 import { Header, Icon, Input, Button, Toast } from '@popup/components'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import _trim from 'lodash/trim'
@@ -91,20 +91,15 @@ class AccountImport extends Component {
       addAccounts(accounts)
       this.store.user.initAccounts()
       this.store.user.initCurrentAccount()
-      if(hasCurAccount){
-        // this.store.app.onReplacePage('accountManage')
-      }else {
+      if(!hasCurAccount){
         const currentAccount = getCurrentAccount()
         iost.changeAccount(currentAccount)
       }
+      this.store.app.onReplacePage('accountManage')
 
     } catch (err) {
       console.log(err)
     }
-  }
-
-  onBack = () => {
-    this.store.app.onBackPage()
   }
 
   onGamehubImport = () => {
@@ -113,10 +108,13 @@ class AccountImport extends Component {
 
   render(){
     const { loading } = this.state
-    const { pages } = this.store.app
+    const { accounts } = this.store.user
     return(
       <div className="account-import-container">
-        <Header title={this.formatMsg({id: 'firstLogin_ImportAccount'})} logo={pages.length<=1} onBack={this.onBack}/>
+        <Header
+          title={this.formatMsg({id: 'firstLogin_ImportAccount'})} 
+          logo={accounts.length<1}
+        />
         <div className="account-import-box">
           <Input
             type="textarea" 
