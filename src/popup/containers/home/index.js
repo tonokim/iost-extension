@@ -20,7 +20,6 @@ class Home extends Component {
   constructor(props){
     super(props)
     this.store = this.props.rootStore
-    this.formatMsg = this.props.intl.formatMessage
   }
 
   onToggle = () => {
@@ -36,6 +35,7 @@ class Home extends Component {
   }
 
   render(){
+    const { formatMessage: formatMsg } = this.props.intl
     const { visible, loading } = this.state
     const { currentAccount, accounts } = this.store.user
     const type = currentAccount.type || 'iost'
@@ -57,7 +57,7 @@ class Home extends Component {
               const key = getAccountKey(item)
               return(
                 <li className={cx('account-item', item.network != 'MAINNET'?'test':'')} key={key} data-key={key} onClick={this.onSwitchAccount} >
-                  <span className="title">{item.type=='theseus'?'GameHub ':'IOST '}{this.formatMsg({id: item.network != 'MAINNET'?'ManageAccount_Test':'ManageAccount_Official'})}</span>
+                  <span className="title">{item.type=='theseus'?'GameHub ':'IOST '}{formatMsg({id: item.network != 'MAINNET'?'ManageAccount_Test':'ManageAccount_Official'})}</span>
                   <span className="name">{item.name}</span>
                   <Icon type="check" color={key == getAccountKey(currentAccount)?'black':''}/>
                 </li>
@@ -77,12 +77,12 @@ class Home extends Component {
             
           </div>
           <ButtonBox className={type == 'iost'?'':'hide'}>
-            <Button>{this.formatMsg({id: 'Account_Transfer'})}</Button>
-            <Button>{this.formatMsg({id: 'Account_Receive'})}</Button>
+            <Button>{formatMsg({id: 'Account_Transfer'})}</Button>
+            <Button>{formatMsg({id: 'Account_Receive'})}</Button>
           </ButtonBox>
           <ButtonBox className={type == 'theseus'?'':'hide'}>
-            <a href="http://endless.game" target="_blank">{this.formatMsg({id: 'Deposit'})}</a>
-            <a href="http://endless.game" target="_blank">{this.formatMsg({id: 'Start_A_Game'})}</a>
+            <a href="http://endless.game" target="_blank">{formatMsg({id: 'Deposit'})}</a>
+            <a href="http://endless.game" target="_blank">{formatMsg({id: 'Start_A_Game'})}</a>
           </ButtonBox>
         </div>
       </div>

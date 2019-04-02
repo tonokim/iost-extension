@@ -11,7 +11,6 @@ class Header extends Component {
   constructor(props){
     super(props)
     this.store = this.props.rootStore
-    this.formatMsg = this.props.intl.formatMessage
   }
 
   onSetting = () => {
@@ -32,12 +31,13 @@ class Header extends Component {
 
   render(){
     const { logo, setting, addAccount, title, children } = this.props
+    const { formatMessage: formatMsg } = this.props.intl
     return(
       <div className="header-container">
         {logo? <Icon type="logo"/>: <Icon type="back" onClick={this.onBack}/>}
         { title && <span className="title">{title}</span> }
         {children}
-        { setting ? <Icon type="setting" onClick={this.onSetting}/> : addAccount ? <span onClick={this.onImportAccount} className="add-account-box">{this.formatMsg({id: 'ManageAccount_Add'})}</span>: <i />}
+        { setting ? <Icon type="setting" onClick={this.onSetting}/> : addAccount ? <span onClick={this.onImportAccount} className="add-account-box">{formatMsg({id: 'ManageAccount_Add'})}</span>: <i />}
       </div>
     )
  }

@@ -13,13 +13,14 @@ class Lock extends Component {
   state = {
     password: ''
   }
+
   constructor(props){
     super(props)
     this.store = this.props.rootStore
-    this.formatMsg = this.props.intl.formatMessage
   }
 
   componentDidMount() {
+    this.store.user.lock()
     document.body.addEventListener('keypress',this.onKeyPress)
   }
 
@@ -44,15 +45,19 @@ class Lock extends Component {
 
   onSubmit = async () => {
     const { password } = this.state
+    const { formatMessage: formatMsg } = this.props.intl
     try {
       await unlock(password)
-      this.store.app.onReplacePage(hasAccounts()?'home':'accountImport')
+      this.store.user.initAccounts()
+      this.store.user.initCurrentAccount()
+      this.store.app.onReplacePage(this.store.user.currentAccount?'home':'accountImport')
     } catch (err) {
-      Toast.html(this.formatMsg({id: 'Password_TryAgain'}))
+      Toast.html(formatMsg({id: 'Password_TryAgain'}))
     }
   }
 
   render(){
+    const { formatMessage: formatMsg } = this.props.intl
     return(
       <div className="lock-container">
         <div className="landing-box">
@@ -64,9 +69,9 @@ class Lock extends Component {
             type="password"
             className="input-password"
             onChange={this.onChange}
-            placeholder={this.formatMsg({id: 'Lock_EnterPassword'})}
+            placeholder={formatMsg({id: 'Lock_EnterPassword'})}
           />
-          <Button onClick={this.onSubmit}>{this.formatMsg({id: 'Lock_Unlock'})}</Button>
+          <Button onClick={this.onSubmit}>{formatMsg({id: 'Lock_Unlock'})}</Button>
         </div>
       </div>
     )

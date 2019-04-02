@@ -88,7 +88,7 @@ const kr_KR = {
   "Lock_EnterPassword": "암호를 입력",
   "Lock_Unlock": "지갑 잠금해제",
   "AboutIOST_nodeVoting": "노드 투표에 참여하십시오.",
-  "AboutIOST_userAgreement": "사용자 동의서",
+  "AboutIOST_agreement": "사용자 동의서",
 
   "Dapp_Unlock": "지금 잠금해제하기",
   "Dapp_Authorization": "승인 요청 됨",

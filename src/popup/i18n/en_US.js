@@ -88,7 +88,7 @@ const en_US = {
   "Lock_EnterPassword": "Enter Password",
   "Lock_Unlock": "Unlock Wallet",
   "AboutIOST_nodeVoting": "Join voting for nodes.",
-  "AboutIOST_userAgreement": "User Agreement",
+  "AboutIOST_agreement": "User Agreement",
 
   "Dapp_Unlock": "Unlock Now",
   "Dapp_Authorization": "Authorization Requested",

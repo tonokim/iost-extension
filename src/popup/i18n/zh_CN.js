@@ -96,7 +96,7 @@ const zh_CN = {
   "Lock_Unlock": "解锁钱包",
 
   "AboutIOST_nodeVoting": "参与节点投票",
-  "AboutIOST_userAgreement": "用户协议",
+  "AboutIOST_agreement": "用户协议",
 
   "Dapp_Unlock": "立即解锁",
   "Dapp_Authorization": "请求授权",

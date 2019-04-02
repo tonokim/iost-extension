@@ -15,14 +15,17 @@ const Algorithm = {
 const winBgPage = ext.extension.getBackgroundPage()
 const bg = winBgPage.background
 
-const defaultLan = bg.store.getLan()
+const getLan = () => bg.store.getLan()
 
+const setLan = (lan) => bg.store.setLan(lan)
 
 const setPassword = (password) => bg.store.setPassword(password)
 
 const hasRegister = () => bg.store.hasRegister()
 
 const unlock = (password) => bg.store.unlock(password)
+
+const lock = () => bg.store.lock()
 
 const getLockState = () => bg.store.lockState
 
@@ -65,10 +68,12 @@ const getAccountBypublickKey = async (publickKey, isProd = true) => {
 const addAccounts = (accounts) => bg.store.addAccounts(accounts)
 
 export {
-  defaultLan,
+  getLan,
+  setLan,
   setPassword,
   hasRegister,
   unlock,
+  lock,
   getLockState,
   hasAccounts,
   getAccounts,

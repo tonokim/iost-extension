@@ -19,7 +19,6 @@ class AccountImport extends Component {
   constructor(props){
     super(props)
     this.store = this.props.rootStore
-    this.formatMsg = this.props.intl.formatMessage
   }
 
   componentDidMount() {
@@ -46,6 +45,7 @@ class AccountImport extends Component {
   }
 
   onSubmit = async () => {
+    const { formatMessage: formatMsg } = this.props.intl
     try {
       this.setState({
         loading: true
@@ -53,11 +53,11 @@ class AccountImport extends Component {
       let accounts = []
       const privateKey = _trim(this.state.privateKey)
       if(!privateKey){
-        return Toast.html(this.formatMsg({id: 'ImportAccount_Tip2'}))
+        return Toast.html(formatMsg({id: 'ImportAccount_Tip2'}))
       }
       const publicKey = privateKeyToPublicKey(privateKey)
       if(!publicKey){
-        return Toast.html(this.formatMsg({id: 'ImportAccount_Tip3'}))
+        return Toast.html(formatMsg({id: 'ImportAccount_Tip3'}))
       }
       let accounts1 = await getAccountBypublickKey(publicKey, true)
       let accounts2 = await getAccountBypublickKey(publicKey, false)
@@ -81,7 +81,7 @@ class AccountImport extends Component {
       })
       accounts = accounts1.concat(accounts2)
       if(!accounts.length){
-        return Toast.html(this.formatMsg({id: 'ImportAccount_Tip1'}))
+        return Toast.html(formatMsg({id: 'ImportAccount_Tip1'}))
       }
       
       this.setState({
@@ -109,10 +109,11 @@ class AccountImport extends Component {
   render(){
     const { loading } = this.state
     const { accounts } = this.store.user
+    const { formatMessage: formatMsg } = this.props.intl
     return(
       <div className="account-import-container">
         <Header
-          title={this.formatMsg({id: 'firstLogin_ImportAccount'})} 
+          title={formatMsg({id: 'firstLogin_ImportAccount'})} 
           logo={accounts.length<1}
         />
         <div className="account-import-box">
@@ -122,12 +123,12 @@ class AccountImport extends Component {
             autoFocus
             className="privateKey" 
             onChange={this.onChange} 
-            placeholder={this.formatMsg({id: 'ImportAccount_EnterPrivate'})}
+            placeholder={formatMsg({id: 'ImportAccount_EnterPrivate'})}
           />
           <p className="account-import-Gamehub">
-            <span onClick={this.onGamehubImport}>{this.formatMsg({id: 'Import_Gamehub_Account'})}&gt;</span>
+            <span onClick={this.onGamehubImport}>{formatMsg({id: 'Import_Gamehub_Account'})}&gt;</span>
           </p>
-          <Button className="btn-submit" onClick={this.onSubmit}>{loading ? <Icon type="loading" /> : this.formatMsg({id: 'ImportAccount_Submit'})}</Button>
+          <Button className="btn-submit" onClick={this.onSubmit}>{loading ? <Icon type="loading" /> : formatMsg({id: 'ImportAccount_Submit'})}</Button>
         </div>
       </div>
     )

@@ -22,7 +22,7 @@ class Background {
         }
       })
     }).on('GET_ACCOUNT', (data) => {
-      if(this.store.lock){
+      if(this.store.locked){
         this.message.send({
           actionId: data.actionId,
           action: data.action,

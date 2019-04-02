@@ -19,7 +19,6 @@ class Setting extends Component {
   constructor(props){
     super(props)
     this.store = this.props.rootStore
-    this.formatMsg = this.props.intl.formatMessage
   }
 
   onEnter = (e) => {
@@ -28,16 +27,17 @@ class Setting extends Component {
   }
 
   render(){
+    const { formatMessage: formatMsg } = this.props.intl
     return(
       <div className="setting-container">
         <Header 
-          title={this.formatMsg({id: 'Settings_Title'})} 
+          title={formatMsg({id: 'Settings_Title'})} 
         />
         <ul className="setting-list">
           {list.map(item => 
             <li key={item.id} onClick={this.onEnter} data-pathname={item.name}>
               <Icon type={item.icon}/>
-              <span>{this.formatMsg({id: `Settings_${item.name}`})}</span>
+              <span>{formatMsg({id: `Settings_${item.name}`})}</span>
             </li>
           )}
         </ul>

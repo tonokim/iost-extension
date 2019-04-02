@@ -9,7 +9,7 @@ class Store {
     this.accounts = new Map() //
     this.currentAccount = null
     this.password = null
-    this.lock = true
+    this.locked = true
     this.lan = lan
     
     this._initLan()
@@ -27,7 +27,7 @@ class Store {
   }
 
   async _initAccounts(){
-    if(!this.lock){
+    if(!this.locked){
       const accounts = await this.getStorage('accounts', [])
       accounts.map(item => {
         let account = {...item}
@@ -35,7 +35,7 @@ class Store {
         account = this.decryptAccount(account)
         this.accounts.set(key,account)
       })
-      this._initCurrentAccount()
+      await this._initCurrentAccount()
     }
   }
 
@@ -106,7 +106,7 @@ class Store {
   }
 
   addAccounts(accounts){
-    if(!this.lock && accounts.length){
+    if(!this.locked && accounts.length){
       let firstKey = ''
       accounts.map(account => {
         const key = `${account.type}:${account.network}:${account.name}`
@@ -146,7 +146,11 @@ class Store {
   }
 
   lock(){
-    this.lock = true
+    this.locked = true
+    this.password = null
+    this.accounts = new Map() //
+    this.accounts.clear()
+    this.currentAccount = null
   }
 
   async unlock(password){
@@ -154,8 +158,8 @@ class Store {
       const encryptPassword = await this.getEncryptPassword()
       if(encryptPassword === sha256(password)){
         this.password = password
-        this.lock = false
-        this._initAccounts()
+        this.locked = false
+        await this._initAccounts()
       }else {
         throw 'invalid password'
       }
@@ -165,11 +169,11 @@ class Store {
   }
 
   get lockState(){
-    return this.lock
+    return this.locked
   }
 
   setPassword(str){
-    this.lock = false
+    this.locked = false
     this.password = str
     const encryptPassword = sha256(str)
     this.setStorage('password', encryptPassword)

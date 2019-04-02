@@ -1,5 +1,5 @@
 import { observable, computed, toJS, action } from "mobx"
-import { getAccounts, getCurrentAccount } from '@popup/utils'
+import { getAccounts, getCurrentAccount, lock } from '@popup/utils'
 
 class User {
   @observable accounts = []
@@ -13,6 +13,12 @@ class User {
   @action
   initCurrentAccount(){
     this.currentAccount = getCurrentAccount()
+  }
+
+  lock(){
+    this.accounts = []
+    this.currentAccount = null
+    lock()
   }
 
 }

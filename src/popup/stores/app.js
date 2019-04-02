@@ -1,10 +1,10 @@
 import { observable, computed, toJS, action } from "mobx"
-import { defaultLan } from '../utils'
+import { getLan } from '@popup/utils'
 
 class App {
   @observable currentPage = 'register'
   @observable pages = []
-  @observable lan = defaultLan
+  @observable lan = getLan()
   @observable loading = true
 
   constructor(rootStore) {
@@ -12,13 +12,13 @@ class App {
   }
 
   @action
-  setLoading(value){
-    this.loading = value
+  refreshLan(){
+    this.lan = getLan()
   }
 
   @action
-  onChange = (e) => {
-    this.text = e.target.value;
+  setLoading(value){
+    this.loading = value
   }
 
   @action

@@ -17,7 +17,6 @@ class Register extends Component {
   constructor(props){
     super(props)
     this.store = this.props.rootStore
-    this.formatMsg = this.props.intl.formatMessage
   }
 
   componentDidMount() {
@@ -50,27 +49,29 @@ class Register extends Component {
   }
 
   onCheckPassword = () => {
+    const { formatMessage: formatMsg } = this.props.intl
     const { password, repassword } = this.state
     if(password == null || password.length < 8){
-      Toast.html(this.formatMsg({id: 'Password_Length'}))
+      Toast.html(formatMsg({id: 'Password_Length'}))
       return false;
     }
     const reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
     if (!reg.test(password)) {
-      Toast.html(this.formatMsg({id: 'Password_Combination'}))
+      Toast.html(formatMsg({id: 'Password_Combination'}))
       return false;
     }
     if (password != repassword) {
-      Toast.html(this.formatMsg({id: 'Password_Different'}))
+      Toast.html(formatMsg({id: 'Password_Different'}))
       return false;
     }
     return true
   }
 
   onSubmit = () => {
+    const { formatMessage: formatMsg } = this.props.intl
     const { password, isChecked } = this.state
     if (!isChecked) {
-      return Toast.html(this.formatMsg({id: 'firstLogin_AgreementTip3'}),3)
+      return Toast.html(formatMsg({id: 'firstLogin_AgreementTip3'}),3)
     }
     if(this.onCheckPassword()) {
       setPassword(password)
@@ -84,6 +85,7 @@ class Register extends Component {
   }
 
   render(){
+    const { formatMessage: formatMsg } = this.props.intl
     const { isChecked } = this.state
     const { loading } = this.store.app
     return(
@@ -98,27 +100,27 @@ class Register extends Component {
           onChange={this.onChange} 
           className="input"
           autoFocus
-          placeholder={this.formatMsg({id: 'firstLogin_SetPassword'})}
+          placeholder={formatMsg({id: 'firstLogin_SetPassword'})}
         />
           <Input 
             name="repassword" 
             type="password" 
             className="input"
             onChange={this.onChange}
-            placeholder={this.formatMsg({id: 'firstLogin_RepeatPassword'})}
+            placeholder={formatMsg({id: 'firstLogin_RepeatPassword'})}
           />
           <div className="line"></div>
-          <Button onClick={this.onSubmit} >{this.formatMsg({id: 'firstLogin_ImportAccount'})}</Button>
+          <Button onClick={this.onSubmit} >{formatMsg({id: 'firstLogin_ImportAccount'})}</Button>
           <p>
-            {this.formatMsg({id: 'firstLogin_NoAndCreate1'})}
+            {formatMsg({id: 'firstLogin_NoAndCreate1'})}
             <a href="https://iostaccount.endless.game" className="third-create" target="_blank">
-            {this.formatMsg({id: 'firstLogin_NoAndCreate2'})}</a>
+            {formatMsg({id: 'firstLogin_NoAndCreate2'})}</a>
           </p>
           <div className="agreement-box">
             <Icon type="checkbox" active={isChecked} onClick={this.onToggleChecked}/>
             <span>
-              {this.formatMsg({id: 'firstLogin_AgreementTip1'})}<br />
-              <a href='javascript:;' onClick={this.onAgreement}> {this.formatMsg({id:'firstLogin_AgreementTip2'})}</a>
+              {formatMsg({id: 'firstLogin_AgreementTip1'})}<br />
+              <a href='javascript:;' onClick={this.onAgreement}> {formatMsg({id:'firstLogin_AgreementTip2'})}</a>
             </span>
           </div>
         </div>}
