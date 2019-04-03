@@ -63,7 +63,7 @@ class IWalletJS {
     IOST.IOST.prototype.signAndSendAsync = signAndSendAsync.bind(this)
     IOST.IOST.prototype.getOasisAccountInfo = getOasisAccountInfo.bind(this)
     this.pack = IOST
-    this.iost = new IOST.IOST(config.DEFAULT_IOST_CONFIG)
+    this.iost = new IOST.IOST(config.defaultConfig)
     const node_url = nodes.get(nodes.has(IWalletJS.network)?IWalletJS.network:'MAINNET').url
     const IOST_PROVIDER = new IOST.HTTPProvider(node_url)
     this.rpc = new IOST.RPC(IOST_PROVIDER)

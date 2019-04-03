@@ -1,10 +1,12 @@
 
 
 const config = {
-  DEFAULT_IOST_CONFIG: {
-    gasPrice: 100,
+  defaultConfig: {
+    gasRatio: 1,
     gasLimit: 100000,
     delay: 0,
+    expiration: 90,
+    defaultLimit: "unlimited"
   },
   nodes: [
     {

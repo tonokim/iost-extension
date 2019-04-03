@@ -49,7 +49,7 @@ const kr_KR = {
   "Account_NotApproved": "승인이 거절 됨",
   "Account_Failed": "실패했습니다",
   "Transfer_Amount": "트랜스퍼 수량",
-  "Transfer_Balance": "밸런스: %{num} %{token}",
+  "Transfer_Balance": "밸런스: {num} {token}",
   "Transfer_InputAmount": "인풋 수량",
   "Transfer_Payee": "수취인",
   "Transfer_EnterName": "유효한 IOST 계정 이름을 입력하십시오.",
@@ -135,7 +135,7 @@ const kr_KR = {
   "GasManage_Optional": "선택사항, 기본값은 당신의 주소입니다",
   "GasManage_Tip": "* 보너스 신청은 3 일간의 자연수가 필요하며 보너스 신청 금액은 없습니다.",
   "GasManage_Records": "리소스 관리 기록",
-  "GasManage_Records_Item": "iGAS를 %{name}를 위해서 스테이킹하기",
+  "GasManage_Records_Item": "iGAS를 {name}를 위해서 스테이킹하기",
 
   "transferResult": "결과 전송",
   "transferSuccess": "성공적인 전송",

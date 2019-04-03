@@ -48,6 +48,10 @@ class AccountManage extends Component {
     }
   }
 
+  onBack = () => {
+    this.store.app.onReplacePage('setting')
+  }
+
   render(){
     const { accounts } = this.store.user
     const { formatMessage: formatMsg } = this.props.intl
@@ -56,6 +60,7 @@ class AccountManage extends Component {
         <Header
           title={formatMsg({id: 'Settings_accountManage'})} 
           addAccount
+          onBack={this.onBack}
         />
         <ul className="account-list">
           {accounts.map(item => {

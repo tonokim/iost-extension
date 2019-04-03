@@ -40,6 +40,10 @@ class Home extends Component {
     this.store.app.onPushPage('qrcode')
   }
 
+  onEnterTransfer = () => {
+    this.store.app.onPushPage('transfer')
+  }
+
   render(){
     const { formatMessage: formatMsg } = this.props.intl
     const { visible, loading } = this.state
@@ -83,12 +87,12 @@ class Home extends Component {
             
           </div>
           <ButtonBox className={type == 'iost'?'':'hide'}>
-            <Button>{formatMsg({id: 'Account_Transfer'})}</Button>
+            <Button onClick={this.onEnterTransfer}>{formatMsg({id: 'Account_Transfer'})}</Button>
             <Button onClick={this.onEnterQrcode}>{formatMsg({id: 'Account_Receive'})}</Button>
           </ButtonBox>
           <ButtonBox className={type == 'oasis'?'':'hide'}>
-            <a href="http://endless.game" target="_blank">{formatMsg({id: 'Deposit'})}</a>
-            <a href="http://endless.game" target="_blank">{formatMsg({id: 'Start_A_Game'})}</a>
+            <a href="https://oasisglobal.io/deposit" target="_blank">{formatMsg({id: 'Deposit'})}</a>
+            <a href="https://oasisglobal.io" target="_blank">{formatMsg({id: 'Start_A_Game'})}</a>
           </ButtonBox>
         </div>
       </div>

@@ -19,6 +19,7 @@ import Agreement from './agreement'
 import ChangePwd from './changePwd'
 import OasisImport from './oasisImport'
 import Qrcode from './qrcode'
+import Transfer from './transfer'
 
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
@@ -55,7 +56,8 @@ export default class  extends Component {
             this.store.user.initCurrentAccount()
             const { currentAccount } = this.store.user
             iost.changeAccount(currentAccount)
-            this.store.app.onReplacePage('home')
+            // this.store.app.onReplacePage('home')
+            this.store.app.onReplacePage('transfer')
             // this.store.app.onReplacePage('qrcode')
             // this.store.app.onReplacePage('setting')
             // this.store.app.onReplacePage('accountManage')
@@ -111,6 +113,9 @@ export default class  extends Component {
         break;
       case 'qrcode':
         renderComponent = <Qrcode />
+        break;
+      case 'transfer':
+        renderComponent = <Transfer />
         break;
       default: 
         renderComponent = <Register />

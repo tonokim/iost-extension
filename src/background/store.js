@@ -24,12 +24,14 @@ class Store {
       const accounts = await this.getStorage('accounts')
       if(accounts instanceof Array && !this.locked && this.password){
         if(accounts.length){
+          console.log(accounts)
           let list = accounts.map(item => {
             if(!item.type){
               item.type = 'iost'
             }
             return this.decryptAccount(item)
           })
+          console.log(list)
           await this.setStorage('accounts', encrypt(list, this.password))
           await this._initAccounts()
         }
@@ -53,12 +55,14 @@ class Store {
     if(!this.locked){
       try {
         let accounts = await this.getStorage('accounts')
-        accounts = decrypt(accounts, this.password)
-        accounts.map(account => {
-          const key = getAccountKey(account)
-          this.accounts.set(key, account)
-        })
-        await this._initCurrentAccount()
+        if(accounts){
+          accounts = decrypt(accounts, this.password)
+          accounts.map(account => {
+            const key = getAccountKey(account)
+            this.accounts.set(key, account)
+          })
+          await this._initCurrentAccount()
+        }
       } catch (err) {
         this.lock()
         throw 'password error'
@@ -78,6 +82,7 @@ class Store {
 
   decryptAccount(account){
     const arr = ['privateKey', 'password', 'token', 'retoken']
+    console.log(this.password)
     return arr.reduce((prev, next) => {
       if(prev[next]){
         prev[next] = aesDecrypt(prev[next], this.password)
@@ -106,7 +111,7 @@ class Store {
   }
 
   getCurrentNode(){
-    return this.nodes.get(this.getCurrentAccount.network)
+    return this.nodes.get(this.getCurrentAccount().network)
   }
 
   get hasAccounts() {
@@ -121,6 +126,8 @@ class Store {
     if(key){
       this.currentAccount = key
       this.setStorage('currentAccount', encrypt(key, this.password) )
+
+      // set iost account network
     }
   }
 

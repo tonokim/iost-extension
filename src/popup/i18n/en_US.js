@@ -49,7 +49,7 @@ const en_US = {
   "Account_NotApproved": "Not approved",
   "Account_Failed": "Failed",
   "Transfer_Amount": "Transfer Amount",
-  "Transfer_Balance": "Balance: %{num} %{token}",
+  "Transfer_Balance": "Balance: {num} {token}",
   "Transfer_InputAmount": "Input Amount",
   "Transfer_Payee": "Payee",
   "Transfer_EnterName": "Enter valid IOST account name",
@@ -134,7 +134,7 @@ const en_US = {
   "GasManage_Optional": "Optional, default is your address",
   "GasManage_Tip": "* Unpledge resources require 3 natural days and the Unpledging amount is not available.",
   "GasManage_Records": "Resource Manage Record",
-  "GasManage_Records_Item": "Pledge iGAS for %{name}",
+  "GasManage_Records_Item": "Pledge iGAS for {name}",
 
   "transferResult": "Transfer Result",
   "transferSuccess": "Successfully Transfered",

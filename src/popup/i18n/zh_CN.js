@@ -50,7 +50,7 @@ const zh_CN = {
   "Account_Failed": "失败",
 
   "Transfer_Amount": "转账金额",
-  "Transfer_Balance": "余额：%{num} %{token}",
+  "Transfer_Balance": "余额：{num} {token}",
   "Transfer_InputAmount": "输入金额",
   "Transfer_Payee": "收款人",
   "Transfer_EnterName": "输入有效的 IOST 账户名",
@@ -142,7 +142,7 @@ const zh_CN = {
   "GasManage_Optional": "选填，默认为您的地址",
   "GasManage_Tip": "*赎回资源需要3⾃然日，赎回金额不可用。",
   "GasManage_Records": "资源管理记录",
-  "GasManage_Records_Item": "为 %{name} 抵押 iGAS",
+  "GasManage_Records_Item": "为 {name} 抵押 iGAS",
 
   "transferResult": "转账结果",
   "transferSuccess": "转账成功",
