@@ -4,7 +4,8 @@ import { inject, observer } from "mobx-react"
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { Header, Icon, Input, Button, Toast } from '@popup/components'
 import { setCurrentAccount } from '@popup/utils'
-import { getAccountKey, cx } from 'utils'
+import { getAccountKey } from 'utils'
+import cx from 'classnames'
 import './style.less'
 
 const ButtonBox = Button.ButtonBox
@@ -32,6 +33,11 @@ class Home extends Component {
     const key = e.currentTarget.dataset.key
     setCurrentAccount(key)
     this.store.user.initCurrentAccount()
+    this.onToggle()
+  }
+
+  onEnterQrcode = () => {
+    this.store.app.onPushPage('qrcode')
   }
 
   render(){
@@ -57,7 +63,7 @@ class Home extends Component {
               const key = getAccountKey(item)
               return(
                 <li className={cx('account-item', item.network != 'MAINNET'?'test':'')} key={key} data-key={key} onClick={this.onSwitchAccount} >
-                  <span className="title">{item.type=='theseus'?'GameHub ':'IOST '}{formatMsg({id: item.network != 'MAINNET'?'ManageAccount_Test':'ManageAccount_Official'})}</span>
+                  <span className="title">{item.type=='oasis'?'Oasis ':'IOST '}{formatMsg({id: item.network != 'MAINNET'?'ManageAccount_Test':'ManageAccount_Official'})}</span>
                   <span className="name">{item.name}</span>
                   <Icon type="check" color={key == getAccountKey(currentAccount)?'black':''}/>
                 </li>
@@ -78,9 +84,9 @@ class Home extends Component {
           </div>
           <ButtonBox className={type == 'iost'?'':'hide'}>
             <Button>{formatMsg({id: 'Account_Transfer'})}</Button>
-            <Button>{formatMsg({id: 'Account_Receive'})}</Button>
+            <Button onClick={this.onEnterQrcode}>{formatMsg({id: 'Account_Receive'})}</Button>
           </ButtonBox>
-          <ButtonBox className={type == 'theseus'?'':'hide'}>
+          <ButtonBox className={type == 'oasis'?'':'hide'}>
             <a href="http://endless.game" target="_blank">{formatMsg({id: 'Deposit'})}</a>
             <a href="http://endless.game" target="_blank">{formatMsg({id: 'Start_A_Game'})}</a>
           </ButtonBox>

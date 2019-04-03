@@ -61,6 +61,8 @@ const en_US = {
   "Receive_Title": "This address only accept IOST transfer",
   "Receive_Copy": "Copy payment address",
   "Receive_Tip": "* Now supports xxx wallet",
+  "CopySuccess": "Successfully Copied",
+
   "Settings_Title": "Settings",
   "Settings_accountManage": "Manage Account",
   "Settings_language": "Change Language",
@@ -144,17 +146,17 @@ const en_US = {
 
 
   "IOST_Account": "IOST Account",
-  "Gamehub_Account": "Gamehub Account",
+  "Oasis_Account": "Oasis Account",
   "Phone_number": "Phone number",
   "Password": "Password",
   "Register": "Register",
   "Forgot_password": "Forgot password?",
-  "Import_Gamehub_Account": "Import Gamehub Account",
-  "Gamehub_TestNet": "Gamehub TestNet",
-  "Gamehub_MainNet": "Gamehub MainNet",
+  "Import_Oasis_Account": "Import Oasis Account",
+  "Oasis_TestNet": "Oasis TestNet",
+  "Oasis_MainNet": "Oasis MainNet",
   "IOST_TestNet": "IOST TestNet",
   "IOST_MainNet": "IOST MainNet",
-  "Gamehub_Number": "Gamehub Number",
+  "Oasis_Number": "Oasis Number",
   "Deposit": "Deposit",
   "Start_A_Game": "Start a Game",
 

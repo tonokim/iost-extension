@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { inject, observer } from "mobx-react";
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { Header, Icon, Input, Button, Toast } from '@popup/components'
-import { setPassword, hasAccounts, unlock } from '@popup/utils'
+import { hasAccounts, unlock } from '@popup/utils'
 import { sha256 } from 'utils'
 import './style.less'
 

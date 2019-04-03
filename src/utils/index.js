@@ -1,6 +1,5 @@
 
 import crypto from 'crypto'
-import cx from 'classnames'
 import hash from 'hash.js'
 
 const checkLan = (str) => ['en','zh','ko'].indexOf(str)> -1 ? str : null
@@ -27,6 +26,21 @@ const aesDecrypt = (encrypted, key) => {
   return decrypted;
 }
 
+const encrypt = (data, key) => {
+  const endata = JSON.stringify(data)
+  const cipher = crypto.createCipher('aes192', key);
+  let crypted = cipher.update(endata, 'utf8', 'hex');
+  crypted += cipher.final('hex');
+  return crypted;
+}
+
+const decrypt = (encrypted, key) => {
+  const decipher = crypto.createDecipher('aes192', key);
+  let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return JSON.parse(decrypted);
+}
+
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 const sha256 = (str) => hash.sha256().update(str).digest('hex')
@@ -35,9 +49,10 @@ const getAccountKey = (account) => `${account.type}:${account.network}:${account
 
 export {
   lan,
-  cx,
   aesEncrypt,
   aesDecrypt,
+  encrypt,
+  decrypt,
   delay,
   sha256,
   getAccountKey,

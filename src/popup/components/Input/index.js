@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react'
+import cx from 'classnames'
 import style from './style.less'
 
 export default class  extends Component {
@@ -16,10 +17,10 @@ export default class  extends Component {
   }
 
   render(){
-    const { type = 'text', name, placeholder, autoFocus, className } = this.props
+    const { type = 'text', name, placeholder, autoFocus, className, boxClassName, onBlur } = this.props
     if(type == 'textarea'){
       return (
-        <div className="input-container">
+        <div className={cx('input-container', boxClassName)}>
           <textarea 
             name={name} 
             className={className}
@@ -27,12 +28,13 @@ export default class  extends Component {
             onChange={this.onChange} 
             placeholder={placeholder}
             autoFocus={autoFocus}
+            onBlur={onBlur}
           />
         </div>
       )
     }
     return(
-      <div className="input-container">
+      <div className={cx('input-container', boxClassName)}>
         <input 
           type={type} 
           name={name} 
@@ -41,6 +43,7 @@ export default class  extends Component {
           onChange={this.onChange} 
           placeholder={placeholder}
           autoFocus={autoFocus}
+          onBlur={onBlur}
         />
       </div>
     )

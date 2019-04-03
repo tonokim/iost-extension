@@ -18,7 +18,7 @@ class contentScript {
       switch (data.action) {
         case 'GET_NODES':
         case 'GET_ACCOUNT':
-        case 'GET_THESEUS_ACCOUNT_INFO':
+        case 'GET_OASIS_ACCOUNT_INFO':
           this.message.send(data)
           break;
         default:

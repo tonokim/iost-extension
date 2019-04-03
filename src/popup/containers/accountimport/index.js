@@ -102,8 +102,8 @@ class AccountImport extends Component {
     }
   }
 
-  onGamehubImport = () => {
-
+  onOasisImport = () => {
+    this.store.app.onPushPage('oasisImport')
   }
 
   render(){
@@ -125,8 +125,8 @@ class AccountImport extends Component {
             onChange={this.onChange} 
             placeholder={formatMsg({id: 'ImportAccount_EnterPrivate'})}
           />
-          <p className="account-import-Gamehub">
-            <span onClick={this.onGamehubImport}>{formatMsg({id: 'Import_Gamehub_Account'})}&gt;</span>
+          <p className="account-import-Oasis">
+            <span onClick={this.onOasisImport}>{formatMsg({id: 'Import_Oasis_Account'})}&gt;</span>
           </p>
           <Button className="btn-submit" onClick={this.onSubmit}>{loading ? <Icon type="loading" /> : formatMsg({id: 'ImportAccount_Submit'})}</Button>
         </div>

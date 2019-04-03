@@ -16,6 +16,9 @@ import AccountManage from './accountManage'
 import Language from './language'
 import About from './about'
 import Agreement from './agreement'
+import ChangePwd from './changePwd'
+import OasisImport from './oasisImport'
+import Qrcode from './qrcode'
 
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
@@ -52,11 +55,14 @@ export default class  extends Component {
             this.store.user.initCurrentAccount()
             const { currentAccount } = this.store.user
             iost.changeAccount(currentAccount)
-            // this.store.app.onReplacePage('home')
+            this.store.app.onReplacePage('home')
+            // this.store.app.onReplacePage('qrcode')
             // this.store.app.onReplacePage('setting')
             // this.store.app.onReplacePage('accountManage')
             // this.store.app.onReplacePage('language')
-            this.store.app.onReplacePage('about')
+            // this.store.app.onReplacePage('about')
+            // this.store.app.onReplacePage('changePwd')
+            // this.store.app.onReplacePage('oasisImport')
           }
         }
       }
@@ -96,6 +102,15 @@ export default class  extends Component {
         break;
       case 'agreement':
         renderComponent = <Agreement />
+        break;
+      case 'changePwd':
+        renderComponent = <ChangePwd />
+        break;
+      case 'oasisImport':
+        renderComponent = <OasisImport />
+        break;
+      case 'qrcode':
+        renderComponent = <Qrcode />
         break;
       default: 
         renderComponent = <Register />

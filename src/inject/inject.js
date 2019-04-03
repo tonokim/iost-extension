@@ -61,7 +61,7 @@ class IWalletJS {
     }
     IOST.IOST.prototype.signAndSend = signAndSend.bind(this)
     IOST.IOST.prototype.signAndSendAsync = signAndSendAsync.bind(this)
-    IOST.IOST.prototype.getTheseusAccountInfo = getTheseusAccountInfo.bind(this)
+    IOST.IOST.prototype.getOasisAccountInfo = getOasisAccountInfo.bind(this)
     this.pack = IOST
     this.iost = new IOST.IOST(config.DEFAULT_IOST_CONFIG)
     const node_url = nodes.get(nodes.has(IWalletJS.network)?IWalletJS.network:'MAINNET').url
@@ -103,8 +103,8 @@ function signAndSend(tx){
   const EE = new EventEmitter()
   actionMap[actionId] = EE
   if(this.account){
-    // if(this.account.type == 'theseus' && action.actionName == 'transfer'){
-    //   setTimeout(() => { cb.pushMsg("failed", 'theseus account can not transfer') },0)
+    // if(this.account.type == 'oasis' && action.actionName == 'transfer'){
+    //   setTimeout(() => { cb.pushMsg("failed", 'oasis account can not transfer') },0)
     // }else {
     //   window.postMessage(message, '*')
     // }
@@ -130,16 +130,16 @@ function signAndSendAsync(tx){
   })
 }
 
-function getTheseusAccountInfo(){
+function getOasisAccountInfo(){
   return new Promise((resolve, reject) => {
     if(!this.account) return reject('no account') 
-    if(this.account.type != 'theseus') return reject('not theseus account')
+    if(this.account.type != 'oasis') return reject('not oasis account')
     const actionId = uuidv4()
     const EE = new EventEmitter()
     actionMap[actionId] = EE
     EE.on('success', data => resolve({ balances: data }))
     .on('failed', reject)
-    window.postMessage({action: 'GET_THESEUS_ACCOUNT_INFO', actionId, data: { account: this.account } }, '*')
+    window.postMessage({action: 'GET_OASIS_ACCOUNT_INFO', actionId, data: { account: this.account } }, '*')
   })
 }
 

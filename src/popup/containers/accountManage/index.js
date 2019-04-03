@@ -5,7 +5,8 @@ import { Header, Icon, Input, Button, Toast, Dialog } from '@popup/components'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { confirmAlert } from 'react-confirm-alert';
-import { getAccountKey, cx } from 'utils'
+import { getAccountKey } from 'utils'
+import cx from 'classnames'
 import { deleteAccount } from '@popup/utils'
 import './style.less'
 
@@ -47,10 +48,6 @@ class AccountManage extends Component {
     }
   }
 
-  onBack = () => {
-    this.store.app.onReplacePage('home')
-  }
-
   render(){
     const { accounts } = this.store.user
     const { formatMessage: formatMsg } = this.props.intl
@@ -58,7 +55,6 @@ class AccountManage extends Component {
       <div className="account-manage-container">
         <Header
           title={formatMsg({id: 'Settings_accountManage'})} 
-          onBack={this.onBack}
           addAccount
         />
         <ul className="account-list">
@@ -68,7 +64,7 @@ class AccountManage extends Component {
               <li className="account-item" key={key}>
                 <div className="info-box">
                   <div className={cx('name-box', item.network != 'MAINNET' ? 'test' : 'official')}>
-                    <span className="title">{item.type=='theseus'?'GameHub ':'IOST '}{formatMsg({id: item.network != 'MAINNET' ?'ManageAccount_Test':'ManageAccount_Official'})}</span>
+                    <span className="title">{item.type=='oasis'?'Oasis ':'IOST '}{formatMsg({id: item.network != 'MAINNET' ?'ManageAccount_Test':'ManageAccount_Official'})}</span>
                     <span className="name">{item.name}</span>
                   </div>
                   {item.type=='iost' && 

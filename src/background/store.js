@@ -1,7 +1,9 @@
 
 import config from 'utils/config'
 import storage from 'utils/storage'
-import { lan, sha256, aesEncrypt, aesDecrypt, getAccountKey } from 'utils'
+import { lan, sha256, aesEncrypt, aesDecrypt, encrypt, decrypt, getAccountKey } from 'utils'
+
+const keys = ['nodes', 'accounts', 'currentAccount']
 
 class Store {
   constructor(){
@@ -14,8 +16,29 @@ class Store {
     
     this._initLan()
     this._initNodes()
-    this._initAccounts()
-    
+    this.updateAccountType()
+  }
+
+  async updateAccountType(){
+    try {
+      const accounts = await this.getStorage('accounts')
+      if(accounts instanceof Array && !this.locked && this.password){
+        if(accounts.length){
+          let list = accounts.map(item => {
+            if(!item.type){
+              item.type = 'iost'
+            }
+            return this.decryptAccount(item)
+          })
+          await this.setStorage('accounts', encrypt(list, this.password))
+          await this._initAccounts()
+        }
+      }else {
+        await this._initAccounts()
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   async _initLan(){
@@ -28,14 +51,18 @@ class Store {
 
   async _initAccounts(){
     if(!this.locked){
-      const accounts = await this.getStorage('accounts', [])
-      accounts.map(item => {
-        let account = {...item}
-        const key = `${account.type}:${account.network}:${account.name}`
-        account = this.decryptAccount(account)
-        this.accounts.set(key,account)
-      })
-      await this._initCurrentAccount()
+      try {
+        let accounts = await this.getStorage('accounts')
+        accounts = decrypt(accounts, this.password)
+        accounts.map(account => {
+          const key = getAccountKey(account)
+          this.accounts.set(key, account)
+        })
+        await this._initCurrentAccount()
+      } catch (err) {
+        this.lock()
+        throw 'password error'
+      }
     }
   }
 
@@ -61,12 +88,13 @@ class Store {
 
   async _initCurrentAccount(){
     if(this.hasAccounts){
-      const curKey = await this.getStorage('currentAccount')
+      let curKey = await this.getStorage('currentAccount')
+      curKey = curKey.indexOf(':') > -1?curKey: decrypt(curKey, this.password)
       if(curKey && this.accounts.has(curKey)){
         this.setCurrentAccount(curKey)
       }else {
         const accounts = this.getAccounts()
-        const key = `${accounts[0].type}:${accounts[0].network}:${accounts[0].name}`
+        const key = getAccountKey(accounts[0])
         this.setCurrentAccount(key)
       }
     }
@@ -92,7 +120,7 @@ class Store {
   setCurrentAccount(key){
     if(key){
       this.currentAccount = key
-      this.setStorage('currentAccount', key)
+      this.setStorage('currentAccount', encrypt(key, this.password) )
     }
   }
 
@@ -109,14 +137,14 @@ class Store {
     if(!this.locked && accounts.length){
       let firstKey = ''
       accounts.map(account => {
-        const key = `${account.type}:${account.network}:${account.name}`
+        const key = getAccountKey(account)
         if(!firstKey){
           firstKey = key
         }
         this.accounts.set(key,account)
       })
       // aesEncrypt
-      const newAccounts = this.getAccounts().map(item => this.encryptAccount(item))
+      const newAccounts = encrypt(this.getAccounts(), this.password)
       this.setStorage('accounts', newAccounts)
       if(!this.hasCurrentAccount){
         this.setCurrentAccount(firstKey)
@@ -127,7 +155,7 @@ class Store {
   deleteAccount(key){
     if(this.accounts.has(key)){
       this.accounts.delete(key)
-      const newAccounts = this.getAccounts().map(item => this.encryptAccount(item))
+      const newAccounts = encrypt(this.getAccounts(), this.password)
       this.setStorage('accounts', newAccounts)
       if(!this.hasCurrentAccount && newAccounts.length){
         this.setCurrentAccount(getAccountKey(newAccounts[0]))
@@ -159,7 +187,7 @@ class Store {
       if(encryptPassword === sha256(password)){
         this.password = password
         this.locked = false
-        await this._initAccounts()
+        await this.updateAccountType()
       }else {
         throw 'invalid password'
       }
@@ -179,8 +207,24 @@ class Store {
     this.setStorage('password', encryptPassword)
   }
 
-  getPassword(){
-    return this.password
+  async updatePassword(newPwd){
+    try {
+      for(let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const endata = await this.getStorage(key)
+        if(endata){
+          const dedata = decrypt(endata, this.password)
+          this.setStorage(key, encrypt(dedata, newPwd)) 
+        }
+      }
+      this.setPassword(newPwd)
+    } catch (err) {
+      throw err
+    }
+  }
+
+  comparePassword(password){
+    return this.password === password
   }
 
   getEncryptPassword(){
@@ -206,7 +250,9 @@ class Store {
   }
 
   setStorage(key, value){
-    storage.set({[key]: value})
+    return new Promise(resolve => (
+      storage.set({[key]: value}, resolve)
+    ))
   }
 
   

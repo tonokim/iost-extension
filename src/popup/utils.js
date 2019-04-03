@@ -67,6 +67,10 @@ const getAccountBypublickKey = async (publickKey, isProd = true) => {
 
 const addAccounts = (accounts) => bg.store.addAccounts(accounts)
 
+const comparePassword = (password) =>   bg.store.comparePassword(password)
+
+const updatePassword = (password) =>   bg.store.updatePassword(password)
+
 export {
   getLan,
   setLan,
@@ -85,4 +89,6 @@ export {
   privateKeyToPublicKey,
   getAccountBypublickKey,
   addAccounts,
+  comparePassword,
+  updatePassword,
 }

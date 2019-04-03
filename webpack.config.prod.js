@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const InjectPlugin = require('./webpack.plugin.inject.js')
 const { getEntry, getOutput, getHTMLPlugins, getCopyPlugins, getResolve, getZipPlugin } = require('./webpack.utils')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const path = require('path');
 // const CleanWebpackPlugin = require('clean-webpack-plugin')
 
@@ -9,7 +9,7 @@ const config = {
   mode: 'production',
   optimization: {
     minimizer: [
-      new UglifyJsPlugin(),
+      new TerserPlugin(),
     ],
   },
   module: {

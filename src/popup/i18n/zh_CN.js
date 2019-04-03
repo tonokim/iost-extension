@@ -63,6 +63,7 @@ const zh_CN = {
   "Receive_Title": "此地址只支持转入IOST",
   "Receive_Copy": "复制收款地址",
   "Receive_Tip": "*目前已支持 XXX 钱包",
+  "CopySuccess": "复制成功",
 
   "Settings_Title": "设置",
   "Settings_accountManage": "账号管理",
@@ -151,22 +152,22 @@ const zh_CN = {
   "gasUsage": "iGas 用量",
   "transferClose": "关闭",
 
-  //theseus
+  //oasis
   "Recharge": '充值',
   "PlayGame": '开始游戏',
 
   "IOST_Account": "IOST账号",
-  "Gamehub_Account": "Gamehub账号",
+  "Oasis_Account": "Oasis账号",
   "Phone_number": "手机号码",
   "Password": "密码",
   "Register": "注册",
   "Forgot_password": "忘记密码？",
-  "Import_Gamehub_Account": "导入Gamehub账号",
-  "Gamehub_TestNet": "Gamehub测试",
-  "Gamehub_MainNet": "Gamehub正式",
+  "Import_Oasis_Account": "导入Oasis账号",
+  "Oasis_TestNet": "Oasis测试",
+  "Oasis_MainNet": "Oasis正式",
   "IOST_TestNet": "IOST测试",
   "IOST_MainNet": "IOST正式",
-  "Gamehub_Number": "Gamehub账号",
+  "Oasis_Number": "Oasis账号",
   "Deposit": "充值",
   "Start_A_Game": "开始游戏",
 }

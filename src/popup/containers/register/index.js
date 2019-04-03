@@ -94,14 +94,14 @@ class Register extends Component {
           <Icon type="home" />
         </div>
         {!loading && <div className="register-box">
-        <Input 
-          name="password" 
-          type="password" 
-          onChange={this.onChange} 
-          className="input"
-          autoFocus
-          placeholder={formatMsg({id: 'firstLogin_SetPassword'})}
-        />
+          <Input 
+            name="password" 
+            type="password" 
+            onChange={this.onChange} 
+            className="input"
+            autoFocus
+            placeholder={formatMsg({id: 'firstLogin_SetPassword'})}
+          />
           <Input 
             name="repassword" 
             type="password" 
