@@ -21,6 +21,8 @@ import OasisImport from './oasisImport'
 import Qrcode from './qrcode'
 import Transfer from './transfer'
 import TxResult from './txResult'
+import GasManage from './gasManage'
+import RamManage from './ramManage'
 
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
@@ -29,6 +31,8 @@ addLocaleData([...en,...zh, ...ko]);
 
 const pageDict = {
   'home': <Home />,
+  'ramManage': <RamManage />,
+  'gasManage': <GasManage />,
   'txResult': <TxResult />,
   'register': <Register />,
   'accountImport': <AccountImport />,

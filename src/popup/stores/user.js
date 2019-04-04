@@ -18,6 +18,7 @@ class User {
       limit: 0,
       pledge_gas: 0,
       pledged_info: [],
+      pledged_amount: 0,
       transferable_gas: 0,
     },
     ram_info: {
@@ -27,6 +28,13 @@ class User {
     },
     assets: [],
     loading: true
+  }
+  @observable ramInfo = {
+    available_ram: 0,
+    buy_price: 0,
+    sell_price: 0,
+    total_ram: 0,
+    used_ram: 0,
   }
 
   @action
@@ -49,11 +57,14 @@ class User {
     lock()
   }
 
-  getAccountInfo = () => {
+  getAccountInfo = (isRam) => {
     return new Promise( async (resolve, reject) => {
       if(this.currentAccount){
         try {
           if(this.currentAccount.type == 'iost') {
+            if(isRam){
+              await this.getRamInfo()
+            }
             await this.getIostInfo()
           }else {
             await this.getOasisInfo()
@@ -72,6 +83,7 @@ class User {
     try {
       const { balance, frozen_balances, gas_info, ram_info } = await iost.rpc.blockchain.getAccountInfo(this.currentAccount.name)
       const frozen_amount = frozen_balances.reduce((prev, next) => (prev += next.amount, prev), 0)
+      const pledged_amount = gas_info.pledged_info.reduce((prev, next) => (prev += next.amount, prev), 0)
       const data = {
         balance,
         frozen_balances,
@@ -79,10 +91,16 @@ class User {
         gas_info: {
           ...gas_info,
           gas_used: Number((gas_info.limit - gas_info.current_total).toFixed(4)),
+          pledged_amount,
         },
-        ram_info,
+        ram_info: {
+          available: Number((ram_info.available/1024).toFixed(4)),
+          total: Number((ram_info.total/1024).toFixed(4)),
+          used: Number((ram_info.used/1024).toFixed(4)),
+        },
         loading: false
       }
+      console.log(data)
       this.setWallet(data)
     } catch (err) {
       console.log(err)
@@ -119,6 +137,27 @@ class User {
   @action
   setWallet(data){
     this.wallet = {...toJS(this.wallet), ...data}
+  }
+
+  getRamInfo = async () => {
+    try {
+      const rlt = await iost.rpc.getProvider().send('get', 'getRAMInfo')
+      const data = {
+        available_ram: Number(rlt.available_ram),
+        buy_price: Number((rlt.buy_price*1024).toFixed(4)),
+        sell_price: Number((rlt.sell_price*1024).toFixed(4)),
+        total_ram: Number(rlt.total_ram),
+        used_ram: Number(rlt.used_ram),
+      }
+      this.setRamInfo(data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  @action
+  setRamInfo(data){
+    this.ramInfo = data
   }
 
 }

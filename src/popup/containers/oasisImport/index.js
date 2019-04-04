@@ -4,6 +4,7 @@ import { inject, observer } from "mobx-react";
 import { Header, Icon, Input, Button, Toast } from '@popup/components'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { addAccounts, hasCurrentAccount, getCurrentAccount } from '@popup/utils'
+import iost from '@popup/iost'
 import oasis from 'utils/oasis'
 import './style.less'
 

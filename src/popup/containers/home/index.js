@@ -40,7 +40,15 @@ class Home extends Component {
         await this.store.user.getAccountInfo()
         await delay(5000)
       } catch (err) {
-        console.log(err)
+        if(typeof err == 'string' && err.indexOf('password error') > -1){
+          const { formatMessage: formatMsg } = this.props.intl
+          Toast.html(formatMsg({id: 'PhoneOrPassword_Error'}),0)
+          if(this._isMounted){
+            this.setState({
+              isError: true
+            })
+          }
+        }
       }
     }
   }
@@ -129,9 +137,5 @@ class Home extends Component {
     )
  }
 }
-
-// const IostResources = () => (
-  
-// )
 
 export default injectIntl(Home)

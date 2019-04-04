@@ -125,9 +125,10 @@ class AccountImport extends Component {
             onChange={this.onChange} 
             placeholder={formatMsg({id: 'ImportAccount_EnterPrivate'})}
           />
-          <p className="account-import-Oasis">
+          {/*<p className="account-import-Oasis">
             <span onClick={this.onOasisImport}>{formatMsg({id: 'Import_Oasis_Account'})}&gt;</span>
-          </p>
+          </p>*/}
+          <Button className="btn-submit-oasis" onClick={this.onOasisImport}>{formatMsg({id: 'Import_Oasis_Account'})}</Button>
           <Button className="btn-submit" onClick={this.onSubmit}>{loading ? <Icon type="loading" /> : formatMsg({id: 'ImportAccount_Submit'})}</Button>
         </div>
       </div>
