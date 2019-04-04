@@ -6,6 +6,9 @@ class App {
   @observable pages = []
   @observable lan = getLan()
   @observable loading = true
+  @observable txResult = {
+    success: false
+  }
 
   constructor(rootStore) {
     this.rootStore = rootStore
@@ -39,6 +42,12 @@ class App {
     if(this.pages.length){
       this.currentPage = this.pages[this.pages.length-1]
     }
+  }
+
+  @action
+  setTxResult(data, success = true){
+    this.txResult = {...data, success}
+    this.onPushPage('txResult')
   }
 
  

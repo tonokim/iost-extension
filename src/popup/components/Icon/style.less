@@ -158,6 +158,28 @@
   .icon('/assets/imgs/book.png', 25px, 20px);
 }
 
+.icon-success{
+  .icon('/assets/imgs/icon-success.png', 90px, 90px);
+}
+
+.icon-failed{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  color: @white;
+  font-weight: bold;
+  font-family: serif;
+  font-size: 65px;
+  font-style: normal;
+  border-radius: 50%;
+  background-image: linear-gradient(#F17575, #AD1515);
+  &:before{
+    content: '!';
+  }
+}
+
 @keyframes rotate{
   0%{
     transform:rotate(0deg);

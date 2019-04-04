@@ -3,6 +3,7 @@ import bs58 from 'bs58'
 import EC from 'elliptic'
 import axios from 'axios'
 import iost from '@popup/iost'
+import config from 'utils/config'
 import ext from 'utils/ext';
 
 const secp = new EC.ec('secp256k1')
@@ -51,9 +52,9 @@ const privateKeyToPublicKey = (privateKey) => {
 }
 
 const getAccountBypublickKey = async (publickKey, isProd = true) => {
-  const url = isProd? 'https://explorer.iost.io/': 'http://54.249.186.224/'
+  const url = config.nodes[isProd? 0 : 1].defaulteExplorer
   try {
-    const { data } = await axios.get(`${url}iost-api/accounts/${publickKey}`,{
+    const { data } = await axios.get(`${url}/iost-api/accounts/${publickKey}`,{
       timeout: 10000
     })
     if(data.code == 0){

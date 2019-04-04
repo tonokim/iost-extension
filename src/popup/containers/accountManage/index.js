@@ -4,7 +4,7 @@ import { inject, observer } from "mobx-react"
 import { Header, Icon, Input, Button, Toast, Dialog } from '@popup/components'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { confirmAlert } from 'react-confirm-alert';
+import { confirmAlert } from 'react-confirm-alert'
 import { getAccountKey } from 'utils'
 import cx from 'classnames'
 import { deleteAccount } from '@popup/utils'

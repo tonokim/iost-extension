@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Button, Icon } from '@popup/components'
+import { Button, Icon, Header } from '@popup/components'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import './style.less'
 
@@ -29,6 +29,8 @@ const Confirm = ({ title, onClose, children}) => (
     </div>
   </div>
 )
+
+
 
 Dialog.Confirm = Confirm
 export default Dialog

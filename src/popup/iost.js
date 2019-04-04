@@ -10,7 +10,7 @@ class IWallet {
   constructor(){
     this.pack = IOST
     this.iost = new IOST.IOST(config.defaultConfig)
-    this.rpc = new IOST.RPC(new IOST.HTTPProvider('https://api.iost.io'))
+    this.rpc = new IOST.RPC(new IOST.HTTPProvider(config.nodes[0].url))
     this.iost.setRPC(this.rpc)
     this.account = new IOST.Account('empty')
   }
@@ -40,35 +40,44 @@ class IWallet {
       const tx = this.iost.callABI(contractName, action, args)
       const node = getCurrentNode()
       tx.setChainID(node.chain_id)
+      this.account.signTx(tx)
+
       let inverval = null, times = 90
-      console.log(123123)
-      this.iost.signAndSend(tx)
-      .on('pending', (hash) => {
-        console.log(hash)
-        inverval = setInterval(() => {
-          times--;
-          if(!times){
-            clearInterval(inverval)
-            reject(`Error: tx ${hash} on chain timeout.`)
+
+      const handler = new IOST.TxHandler(tx, this.rpc)
+      handler.onPending(({hash, pre_tx_receipt}) => {
+        if(pre_tx_receipt){
+          if(pre_tx_receipt.status_code == 'SUCCESS'){
+            resolve(pre_tx_receipt)
           }else {
-            iost.rpc.transaction.getTxByHash(hash).then(({transaction}) => {
-              const tx_receipt = transaction.tx_receipt
-              if(tx_receipt){
-                clearInterval(inverval)
-                if(tx_receipt.status_code === "SUCCESS"){
-                  resolve(tx_receipt)
-                }else {
-                  reject(tx_receipt.stack?tx_receipt.message:tx_receipt)
-                }
-              }
-            })
+            reject(pre_tx_receipt)
           }
-        },1000)
-      })
-      .on('failed', err => {
+        }else {
+          inverval = setInterval(() => {
+            times--;
+            if(!times){
+              clearInterval(inverval)
+              reject(`Error: tx ${hash} on chain timeout.`)
+            }else {
+              this.rpc.transaction.getTxByHash(hash).then(({transaction}) => {
+                const tx_receipt = transaction.tx_receipt
+                if(tx_receipt){
+                  clearInterval(inverval)
+                  if(tx_receipt.status_code === "SUCCESS"){
+                    resolve(tx_receipt)
+                  }else {
+                    reject(tx_receipt)
+                  }
+                }
+              })
+            }
+          },1000)
+        }
+      }).onFailed((err) => {
         clearInterval(inverval)
-        reject(err.stack?err.message:err)
+        reject(err)
       })
+      .send()
     })
   }
 

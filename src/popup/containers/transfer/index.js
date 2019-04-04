@@ -4,6 +4,7 @@ import { inject, observer } from "mobx-react"
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { Header, Icon, Input, Button, Toast } from '@popup/components'
 import config from 'utils/config'
+import { delay } from 'utils'
 import iost from '@popup/iost'
 import cx from 'classnames'
 import './style.less'
@@ -34,11 +35,19 @@ class Transfer extends Component {
     this.getData()
   }
 
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
   getData = async () => {
-    // while(this._isMounted){
-    //   await this.getResourceBalance()
-    //   await utils.delay(5000)
-    // }
+    while(this._isMounted && !this.state.isError){
+      try {
+        await this.store.user.getAccountInfo()
+        await delay(5000)
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
 
   onChange = (value, name) => {
@@ -60,24 +69,27 @@ class Transfer extends Component {
       return
     }
     try {
-      const memo = ['iost', currentAccount.name, to, amount, memo]
-      const rlt = await iost.signAndSend('token.iost','transfer', memo)
-      console.log(rlt)
+      this.setState({
+        loading: true
+      })
+      const rlt = await iost.signAndSend('token.iost','transfer', ['iost', currentAccount.name, to, amount, memo])
+      this.store.app.setTxResult(rlt)
     } catch (err) {
-      console.log(err)
+      this.store.app.setTxResult(err, false)
     }
   }
 
   render(){
     const { iGASPrice, iGASLimit, errorMessage, isEditiGas, loading } = this.state
     const { formatMessage: formatMsg } = this.props.intl
+    const { wallet } = this.store.user
     return(
       <div className="transfer-container">
         <Header title={formatMsg({id: 'Account_Transfer'})} />
         <div className="transfer-box">
           <p className="input-label-box">
             <span>{formatMsg({id: 'Transfer_Amount'})}</span>
-            <span className="balance">{formatMsg({id: 'Transfer_Balance'}, { num: 0, token: 'IOST' })}</span>
+            <span className="balance">{formatMsg({id: 'Transfer_Balance'}, { num: wallet.balance, token: 'IOST' })}</span>
           </p>
           <Input
             name="amount"

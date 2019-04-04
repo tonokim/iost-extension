@@ -1,4 +1,8 @@
 import axios from 'axios'
+import ext from 'utils/ext';
+
+const winBgPage = ext.extension.getBackgroundPage()
+const bg = winBgPage.background
 
 const API = false? 'https://endless.game/api/': 'http://18.223.43.49:8081/api/'
 
@@ -55,15 +59,16 @@ const oasis = {
       })
       const { data } = await axios.post(api.refreshToken,sdata)
       if(data.code == 0){
-        const AccessToken = data.data.AccessToken
-        // user.refreshAccessToken(AccessToken)
-        // return AccessToken
+        const token = data.data.AccessToken
+        const newAccount = {...account, token}
+        bg.store.addAccounts([newAccount])
+        return newAccount
       }else {
         // refreshtoken error relogin
         const rlt = await oasis.login(account.phone, account.password)
-        // user.refreshAllToken(rlt)
-        // return rlt.AccessToken
-        // throw new Error('refreshtoken error')
+        const newAccount = {...account, token: rlt.AccessToken, retoken: rlt.refreshToken}
+        bg.store.addAccounts([newAccount])
+        return newAccount
       }
     } catch (err) {
       throw err

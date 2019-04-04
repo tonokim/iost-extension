@@ -20,12 +20,29 @@ import ChangePwd from './changePwd'
 import OasisImport from './oasisImport'
 import Qrcode from './qrcode'
 import Transfer from './transfer'
+import TxResult from './txResult'
 
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
 import ko from 'react-intl/locale-data/ko';
 addLocaleData([...en,...zh, ...ko]);
 
+const pageDict = {
+  'home': <Home />,
+  'txResult': <TxResult />,
+  'register': <Register />,
+  'accountImport': <AccountImport />,
+  'lock': <Lock />,
+  'setting': <Setting />,
+  'accountManage': <AccountManage />,
+  'language': <Language />,
+  'about': <About />,
+  'agreement': <Agreement />,
+  'changePwd': <ChangePwd />,
+  'oasisImport': <OasisImport />,
+  'qrcode': <Qrcode />,
+  'transfer': <Transfer />,
+}
 
 @inject("rootStore")
 @observer
@@ -56,15 +73,7 @@ export default class  extends Component {
             this.store.user.initCurrentAccount()
             const { currentAccount } = this.store.user
             iost.changeAccount(currentAccount)
-            // this.store.app.onReplacePage('home')
-            this.store.app.onReplacePage('transfer')
-            // this.store.app.onReplacePage('qrcode')
-            // this.store.app.onReplacePage('setting')
-            // this.store.app.onReplacePage('accountManage')
-            // this.store.app.onReplacePage('language')
-            // this.store.app.onReplacePage('about')
-            // this.store.app.onReplacePage('changePwd')
-            // this.store.app.onReplacePage('oasisImport')
+            this.store.app.onReplacePage(Object.keys(pageDict)[0])
           }
         }
       }
@@ -76,57 +85,12 @@ export default class  extends Component {
 
   render(){
     const { currentPage, lan } = this.store.app
-    let renderComponent = <div></div>
-    switch(currentPage){
-      case 'register':
-        renderComponent = <Register />
-        break;
-      case 'accountImport':
-        renderComponent = <AccountImport />
-        break;
-      case 'lock':
-        renderComponent = <Lock />
-        break;
-      case 'home':
-        renderComponent = <Home />
-        break;
-      case 'setting':
-        renderComponent = <Setting />
-        break;
-      case 'accountManage':
-        renderComponent = <AccountManage />
-        break;
-      case 'language':
-        renderComponent = <Language />
-        break;
-      case 'about':
-        renderComponent = <About />
-        break;
-      case 'agreement':
-        renderComponent = <Agreement />
-        break;
-      case 'changePwd':
-        renderComponent = <ChangePwd />
-        break;
-      case 'oasisImport':
-        renderComponent = <OasisImport />
-        break;
-      case 'qrcode':
-        renderComponent = <Qrcode />
-        break;
-      case 'transfer':
-        renderComponent = <Transfer />
-        break;
-      default: 
-        renderComponent = <Register />
-        break;
-    }
     return(
       <IntlProvider
         locale={lan}
         messages={chooseLocale(lan)}
       >
-        {renderComponent}
+        {pageDict[currentPage] || <Register />}
       </IntlProvider>
     )
  }

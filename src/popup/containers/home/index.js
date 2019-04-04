@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import { inject, observer } from "mobx-react"
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { Header, Icon, Input, Button, Toast } from '@popup/components'
-import { setCurrentAccount } from '@popup/utils'
-import { getAccountKey } from 'utils'
+import { setCurrentAccount, getCurrentNode } from '@popup/utils'
+import { getAccountKey, delay } from 'utils'
 import cx from 'classnames'
 import './style.less'
 
@@ -14,13 +14,35 @@ const ButtonBox = Button.ButtonBox
 @observer
 class Home extends Component {
   state = {
-    loading: true,
-    visible: false
+    visible: false,
+    isError: false
   }
 
   constructor(props){
     super(props)
     this.store = this.props.rootStore
+  }
+
+  _isMounted = false
+
+  componentDidMount() {
+    this._isMounted = true
+    this.getData()
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
+  getData = async () => {
+    while(this._isMounted && !this.state.isError){
+      try {
+        await this.store.user.getAccountInfo()
+        await delay(5000)
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
 
   onToggle = () => {
@@ -46,9 +68,17 @@ class Home extends Component {
 
   render(){
     const { formatMessage: formatMsg } = this.props.intl
-    const { visible, loading } = this.state
-    const { currentAccount, accounts } = this.store.user
+    const { visible } = this.state
+    const { currentAccount, accounts, wallet } = this.store.user
     const type = currentAccount.type || 'iost'
+    const node = getCurrentNode()
+    let linkProperty = {}
+    if(currentAccount && currentAccount.type == "iost"){
+      linkProperty = {
+        target: '_blank',
+        url: `${node.explorer}/account/${currentAccount.name}`
+      }
+    }
     return(
       <div className="home-container">
         <Header 
@@ -75,12 +105,12 @@ class Home extends Component {
             })}
           </ul>
           <div className="token-balance-box">
-            <a>
+            <a {...linkProperty}>
               <div className="logo-box">
                 <Icon type="big-logo" className="iost"/>
               </div>
               <div className="amount-box">
-                <span>{loading? <Icon type="loading"/>: 1}</span>
+                <span>{wallet.loading? <Icon type="loading"/>: wallet.balance}</span>
                 <span>iost</span>
               </div>
             </a>
@@ -99,4 +129,9 @@ class Home extends Component {
     )
  }
 }
+
+// const IostResources = () => (
+  
+// )
+
 export default injectIntl(Home)
