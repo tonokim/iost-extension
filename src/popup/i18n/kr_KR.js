@@ -145,20 +145,6 @@ const kr_KR = {
   "gasUsage": "iGas 소비",
   "transferClose": "닫기",
 
-  "IOST_Account": "IOST 계정",
-  "Oasis_Account": "Oasis 계정",
-  "Phone_number": "전화 번호",
-  "Password": "비밀 번호",
-  "Register": "가입하기",
-  "Forgot_password": "비밀번호 찾기",
-  "Import_Oasis_Account": "Oasis 계정추가",
-  "Oasis_TestNet": "Oasis 테스트",
-  "Oasis_MainNet": "Oasis 정식",
-  "IOST_TestNet": "IOST 테스트",
-  "IOST_MainNet": "IOST 정식",
-  "Oasis_Number": "Oasis 번호",
-  "Deposit": "입금",
-  "Start_A_Game": "지금 시작하기",
 }
 
 export default kr_KR;

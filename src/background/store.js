@@ -10,8 +10,8 @@ class Store {
     this.nodes = new Map()
     this.accounts = new Map() //
     this.currentAccount = null
-    this.password = null
-    this.locked = true
+    this.password = 'qweasd123'//null
+    this.locked = false//true
     this.lan = lan
     
     this._initLan()
@@ -25,12 +25,7 @@ class Store {
       if(accounts instanceof Array && !this.locked && this.password){
         if(accounts.length){
           console.log(accounts)
-          let list = accounts.map(item => {
-            if(!item.type){
-              item.type = 'iost'
-            }
-            return this.decryptAccount(item)
-          })
+          let list = accounts.map(item => this.decryptAccount(item))
           console.log(list)
           await this.setStorage('accounts', encrypt(list, this.password))
           await this._initAccounts()
@@ -44,7 +39,7 @@ class Store {
   }
 
   async _initLan(){
-    this.lan = await this.getStorage('locale', 'en')
+    this.lan = await this.getStorage('locale', lan)
   }
 
   _initNodes(){

@@ -144,22 +144,6 @@ const en_US = {
   "gasUsage": "iGAS Usage",
   "transferClose": "Close",
 
-
-  "IOST_Account": "IOST Account",
-  "Oasis_Account": "Oasis Account",
-  "Phone_number": "Phone number",
-  "Password": "Password",
-  "Register": "Register",
-  "Forgot_password": "Forgot password?",
-  "Import_Oasis_Account": "Import Oasis Account",
-  "Oasis_TestNet": "Oasis TestNet",
-  "Oasis_MainNet": "Oasis MainNet",
-  "IOST_TestNet": "IOST TestNet",
-  "IOST_MainNet": "IOST MainNet",
-  "Oasis_Number": "Oasis Number",
-  "Deposit": "Deposit",
-  "Start_A_Game": "Start a Game",
-
 }
 
 export default en_US;

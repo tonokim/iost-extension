@@ -17,7 +17,6 @@ import Language from './language'
 import About from './about'
 import Agreement from './agreement'
 import ChangePwd from './changePwd'
-import OasisImport from './oasisImport'
 import Qrcode from './qrcode'
 import Transfer from './transfer'
 import TxResult from './txResult'
@@ -43,7 +42,6 @@ const pageDict = {
   'about': <About />,
   'agreement': <Agreement />,
   'changePwd': <ChangePwd />,
-  'oasisImport': <OasisImport />,
   'qrcode': <Qrcode />,
   'transfer': <Transfer />,
 }

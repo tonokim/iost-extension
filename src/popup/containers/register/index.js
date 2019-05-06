@@ -80,18 +80,6 @@ class Register extends Component {
 
   }
 
-  onOasisSubmit = () => {
-    const { formatMessage: formatMsg } = this.props.intl
-    const { password, isChecked } = this.state
-    if (!isChecked) {
-      return Toast.html(formatMsg({id: 'firstLogin_AgreementTip3'}),3)
-    }
-    if(this.onCheckPassword()) {
-      setPassword(password)
-      this.store.app.onReplacePage('oasisImport')
-    }
-  }
-
   onAgreement = () => {
     this.store.app.onPushPage('userAgreement')
   }
@@ -123,7 +111,6 @@ class Register extends Component {
           />
           <div className="line"></div>
           <Button onClick={this.onSubmit} >{formatMsg({id: 'firstLogin_ImportAccount'})}</Button>
-          <Button onClick={this.onOasisSubmit} className="oasis-btn">{formatMsg({id: 'Import_Oasis_Account'})}</Button>
           <p>
             {formatMsg({id: 'firstLogin_NoAndCreate1'})}
             <a href="https://iostaccount.endless.game" className="third-create" target="_blank">

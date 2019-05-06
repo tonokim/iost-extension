@@ -1,8 +1,6 @@
 import Message from './message'
 import Store from './store'
 
-
-
 class Background {
   constructor(){
     this.message = new Message()

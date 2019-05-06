@@ -78,10 +78,9 @@ class Home extends Component {
     const { formatMessage: formatMsg } = this.props.intl
     const { visible } = this.state
     const { currentAccount, accounts, wallet } = this.store.user
-    const type = currentAccount.type || 'iost'
     const node = getCurrentNode()
     let linkProperty = {}
-    if(currentAccount && currentAccount.type == "iost"){
+    if(currentAccount){
       linkProperty = {
         target: '_blank',
         url: `${node.explorer}/account/${currentAccount.name}`
@@ -105,7 +104,7 @@ class Home extends Component {
               const key = getAccountKey(item)
               return(
                 <li className={cx('account-item', item.network != 'MAINNET'?'test':'')} key={key} data-key={key} onClick={this.onSwitchAccount} >
-                  <span className="title">{item.type=='oasis'?'Oasis ':'IOST '}{formatMsg({id: item.network != 'MAINNET'?'ManageAccount_Test':'ManageAccount_Official'})}</span>
+                  <span className="title">IOST {formatMsg({id: item.network != 'MAINNET'?'ManageAccount_Test':'ManageAccount_Official'})}</span>
                   <span className="name">{item.name}</span>
                   <Icon type="check" color={key == getAccountKey(currentAccount)?'black':''}/>
                 </li>
@@ -124,13 +123,9 @@ class Home extends Component {
             </a>
             
           </div>
-          <ButtonBox className={type == 'iost'?'':'hide'}>
+          <ButtonBox>
             <Button onClick={this.onEnterTransfer}>{formatMsg({id: 'Account_Transfer'})}</Button>
             <Button onClick={this.onEnterQrcode}>{formatMsg({id: 'Account_Receive'})}</Button>
-          </ButtonBox>
-          <ButtonBox className={type == 'oasis'?'':'hide'}>
-            <a href="https://oasisglobal.io/deposit" target="_blank">{formatMsg({id: 'Deposit'})}</a>
-            <a href="https://oasisglobal.io" target="_blank">{formatMsg({id: 'Start_A_Game'})}</a>
           </ButtonBox>
         </div>
       </div>

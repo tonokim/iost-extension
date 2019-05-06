@@ -17,14 +17,12 @@ class IWallet {
 
   changeAccount(account){
     setCurrentAccount(getAccountKey(account))
-    if(account.type == 'iost'){
-      this.changeNetwork()
-      this.account = new IOST.Account(account.name)
-      const kp = new IOST.KeyPair(bs58.decode(account.privateKey),account.privateKey.length>50?2:1)
-      this.account.addKeyPair(kp, "owner")
-      this.account.addKeyPair(kp, "active")
-      this.iost.setAccount(this.account);
-    }
+    this.changeNetwork()
+    this.account = new IOST.Account(account.name)
+    const kp = new IOST.KeyPair(bs58.decode(account.privateKey),account.privateKey.length>50?2:1)
+    this.account.addKeyPair(kp, "owner")
+    this.account.addKeyPair(kp, "active")
+    this.iost.setAccount(this.account);
   }
 
   changeNetwork(){

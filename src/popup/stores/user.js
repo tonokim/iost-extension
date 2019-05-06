@@ -1,5 +1,4 @@
 import { observable, computed, toJS, action } from "mobx"
-import oasis from 'utils/oasis'
 import { getAccounts, getCurrentAccount, lock } from '@popup/utils'
 import iost from '@popup/iost'
 import { delay } from 'utils'
@@ -61,14 +60,10 @@ class User {
     return new Promise( async (resolve, reject) => {
       if(this.currentAccount){
         try {
-          if(this.currentAccount.type == 'iost') {
-            if(isRam){
-              await this.getRamInfo()
-            }
-            await this.getIostInfo()
-          }else {
-            await this.getOasisInfo()
+          if(isRam){
+            await this.getRamInfo()
           }
+          await this.getIostInfo()
           resolve()
         } catch (err) {
           reject(err)
@@ -101,33 +96,6 @@ class User {
         loading: false
       }
       console.log(data)
-      this.setWallet(data)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  getOasisInfo = async () => {
-    try {
-      const { Assets } = await oasis.info(this.currentAccount)
-      let balance = 0
-      const assets = Assets.map(item => {
-        if(item.Symbol == 'iost'){
-          balance = item.Available
-        }
-        return {
-          available: item.Available,
-          chain: item.Chain,
-          freeze: item.Freeze,
-          id: item.ID,
-          symbol: item.Symbol,
-        }
-      })
-      const data = {
-        assets,
-        balance,
-        loading: false
-      }
       this.setWallet(data)
     } catch (err) {
       console.log(err)

@@ -67,7 +67,6 @@ class AccountImport extends Component {
           network: 'MAINNET',
           privateKey,
           publicKey,
-          type: 'iost'
         }
       })
       accounts2 = accounts2.map(item => {
@@ -76,7 +75,6 @@ class AccountImport extends Component {
           network: 'TESTNET',
           privateKey,
           publicKey,
-          type: 'iost'
         }
       })
       accounts = accounts1.concat(accounts2)
@@ -102,10 +100,6 @@ class AccountImport extends Component {
     }
   }
 
-  onOasisImport = () => {
-    this.store.app.onPushPage('oasisImport')
-  }
-
   render(){
     const { loading } = this.state
     const { accounts } = this.store.user
@@ -125,10 +119,6 @@ class AccountImport extends Component {
             onChange={this.onChange} 
             placeholder={formatMsg({id: 'ImportAccount_EnterPrivate'})}
           />
-          {/*<p className="account-import-Oasis">
-            <span onClick={this.onOasisImport}>{formatMsg({id: 'Import_Oasis_Account'})}&gt;</span>
-          </p>*/}
-          <Button className="btn-submit-oasis" onClick={this.onOasisImport}>{formatMsg({id: 'Import_Oasis_Account'})}</Button>
           <Button className="btn-submit" onClick={this.onSubmit}>{loading ? <Icon type="loading" /> : formatMsg({id: 'ImportAccount_Submit'})}</Button>
         </div>
       </div>

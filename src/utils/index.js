@@ -45,7 +45,7 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 const sha256 = (str) => hash.sha256().update(str).digest('hex')
 
-const getAccountKey = (account) => `${account.type}:${account.network}:${account.name}`
+const getAccountKey = (account) => `${account.network}:${account.name}`
 
 export {
   lan,

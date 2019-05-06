@@ -151,25 +151,6 @@ const zh_CN = {
   "txid": "交易 ID",
   "gasUsage": "iGas 用量",
   "transferClose": "关闭",
-
-  //oasis
-  "Recharge": '充值',
-  "PlayGame": '开始游戏',
-
-  "IOST_Account": "IOST账号",
-  "Oasis_Account": "Oasis账号",
-  "Phone_number": "手机号码",
-  "Password": "密码",
-  "Register": "注册",
-  "Forgot_password": "忘记密码？",
-  "Import_Oasis_Account": "导入Oasis账号",
-  "Oasis_TestNet": "Oasis测试",
-  "Oasis_MainNet": "Oasis正式",
-  "IOST_TestNet": "IOST测试",
-  "IOST_MainNet": "IOST正式",
-  "Oasis_Number": "Oasis账号",
-  "Deposit": "充值",
-  "Start_A_Game": "开始游戏",
 }
 
 export default zh_CN;

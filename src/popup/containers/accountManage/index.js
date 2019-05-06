@@ -69,10 +69,9 @@ class AccountManage extends Component {
               <li className="account-item" key={key}>
                 <div className="info-box">
                   <div className={cx('name-box', item.network != 'MAINNET' ? 'test' : 'official')}>
-                    <span className="title">{item.type=='oasis'?'Oasis ':'IOST '}{formatMsg({id: item.network != 'MAINNET' ?'ManageAccount_Test':'ManageAccount_Official'})}</span>
+                    <span className="title">IOST {formatMsg({id: item.network != 'MAINNET' ?'ManageAccount_Test':'ManageAccount_Official'})}</span>
                     <span className="name">{item.name}</span>
                   </div>
-                  {item.type=='iost' && 
                   <div className="pubkey-box">
                     <span className="title">{formatMsg({id: 'ManageAccount_PublicKey'})}</span>
                     <span className="name">
@@ -81,7 +80,7 @@ class AccountManage extends Component {
                         <Icon type="copy" />
                       </CopyToClipboard>
                     </span>
-                  </div>}
+                  </div>
                 </div>
                 <Icon type="delete" onClick={this.onDelete} dataKey={key}/>
               </li>
